@@ -21,6 +21,35 @@ public class Usuario {
 		this.fechaCreacion = fechaCreacion;
 		this.ultimoAcceso = ultimoAcceso;
 	}
+	
+	public int getId() {
+		return id;
+	}
+	
+	public Personas getPersona() {
+		return persona;
+	}
+	
+	public String getUsuario() {
+		return usuario;
+	}
+	
+	public String getPasswordHash() {
+		return passwordHash;
+	}
+	
+	public String getRol() {
+		return rol;
+	}
+	
+	public Date getFechaCreacion() {
+		return fechaCreacion;
+	}
+	
+	public Date getUltimoAcceso() {
+		return ultimoAcceso;
+	}
+	
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
