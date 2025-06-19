@@ -22,10 +22,10 @@ public class conexion {
         try {
             if (connection == null || connection.isClosed()) {
                 // Cargar el driver
-                Class.forName(DRIVER);
+                Class.forName(Driver);
                 
                 // Establecer conexión
-                connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+                connection = DriverManager.getConnection(URL, Username, Password);
                 System.out.println("✅ Conexión exitosa a la base de datos Crud_pc");
             }
         } catch (ClassNotFoundException e) {
