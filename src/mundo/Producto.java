@@ -29,4 +29,14 @@ public class Producto {
 		this.fecha_actualizacion = new Date();
 	}
 	
+	
+	public int getId() 
+	{
+		return id;
+	}
+	
+	public void setId(int id) 
+	{
+		this.id = id;
+	}
 }
