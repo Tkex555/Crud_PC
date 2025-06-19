@@ -43,7 +43,6 @@ public class Marca {
 		return descripcion;
 	}
 	
-	
 	public void setDescripcion(String descripcion) 
 	{
 		this.descripcion = descripcion;
@@ -56,5 +55,18 @@ public class Marca {
 	}
 	
 	
+	public boolean setEstado(boolean estado) 
+	{
+		this.estado = estado;
+	}
 	
+	
+	public String toString() {
+        return "Marca{" +
+                "id_marca=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", estado=" + estado +
+                '}';
+    }
 }
