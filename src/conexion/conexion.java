@@ -38,4 +38,20 @@ public class conexion {
         }
         return connection;
     }
+	
+	
+	
+	
+	public static void closeConnection() {
+        try {
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+                System.out.println("🔐 Conexión cerrada correctamente");
+            }
+        } catch (SQLException e) {
+            System.err.println("❌ Error al cerrar la conexión");
+            e.printStackTrace();
+        }
+    }
+	
 }
