@@ -14,5 +14,22 @@ public class Marca {
 		this.descripcion = descripcion;
 		this.estado = estado;
 	}
+	
+	
+	public int getId_marca() 
+	{
+		return id;
+	}
+	
+	public void setId_marca(int id) 
+	{
+		this.id = id;
+	}
+	
+	public String getNombre() 
+	{
+		return nombre;
+	}
+	
 
 }
