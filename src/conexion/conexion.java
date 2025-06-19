@@ -11,6 +11,31 @@ public class conexion {
 	private static final String Password = "";
 	private static final String Driver = "com.mysql.cj.jdbc.Driver";
 	
+	private static Connection connection = null;
+	
+	private conexion() {}
 	
 	
+	
+	
+	public static Connection getConnection() {
+        try {
+            if (connection == null || connection.isClosed()) {
+                // Cargar el driver
+                Class.forName(DRIVER);
+                
+                // Establecer conexión
+                connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+                System.out.println("✅ Conexión exitosa a la base de datos Crud_pc");
+            }
+        } catch (ClassNotFoundException e) {
+            System.err.println(" Error: Driver MySQL no encontrado");
+            e.printStackTrace();
+        } catch (SQLException e) {
+            System.err.println("Error al conectar con la base de datos");
+            System.err.println("Verifica que MySQL esté corriendo y los datos sean correctos");
+            e.printStackTrace();
+        }
+        return connection;
+    }
 }
