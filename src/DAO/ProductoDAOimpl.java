@@ -43,4 +43,11 @@ public class ProductoDAOimpl implements ProductoDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public List<Producto> buscarPorNombre(String nombre) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }
