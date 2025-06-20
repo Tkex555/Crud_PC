@@ -1,18 +1,22 @@
 package mundo;
 
+import java.util.Date;
+
 public class Marca {
 	
 	private int id;
 	private String nombre;
+	private String pais_origen;
 	private String descripcion;
-	private String estado;
+	private Date fecha_creacion;
 	
 	
-	public Marca(int id, String nombre, String descripcion, String estado) {
+	public Marca(int id, String nombre, String pais_origen, String descripcion, Date fecha_creacion) {
 		this.id = id;
 		this.nombre = nombre;
+		this.pais_origen = pais_origen;
 		this.descripcion = descripcion;
-		this.estado = estado;
+		this.fecha_creacion = fecha_creacion;
 	}
 	
 	
@@ -37,6 +41,16 @@ public class Marca {
 		this.nombre = nombre;
 	}
 	
+	public String getPais_origen() 
+	{
+		return pais_origen;
+	}
+	
+	public void setPais_origen(String pais_origen) 
+	{
+		this.pais_origen = pais_origen;
+	}
+	
 	
 	public String getDescripcion() 
 	{
@@ -49,24 +63,25 @@ public class Marca {
 	}
 	
 	
-	public boolean isEstado() 
+	public Date getFecha_creacion() 
 	{
-		return estado;
+		return fecha_creacion;
 	}
 	
 	
-	public boolean setEstado(boolean estado) 
+	public void setFecha_creacion(Date fecha_creacion) 
 	{
-		this.estado = estado;
+		this.fecha_creacion = fecha_creacion;
 	}
 	
 	
 	public String toString() {
         return "Marca{" +
-                "id_marca=" + id +
+                "id=" + id +
                 ", nombre='" + nombre + '\'' +
+                ", pais_origen='" + pais_origen + '\'' +
                 ", descripcion='" + descripcion + '\'' +
-                ", estado=" + estado +
+                ", fecha_creacion=" + fecha_creacion +
                 '}';
     }
 }
