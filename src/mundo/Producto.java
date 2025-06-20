@@ -139,4 +139,21 @@ public class Producto {
     public void setFecha_actualizacion(Date fecha_actualizacion) {
         this.fecha_actualizacion = fecha_actualizacion;
     }
+    
+    
+    public String toString() {
+        return "Producto{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", modelo='" + modelo + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", precio=" + precio +
+                ", stock=" + stock +
+                ", especificaciones_tecnicas='" + especificaciones_tecnicas + '\'' +
+                ", id_categoria=" + id_categoria +
+                ", id_marca=" + id_marca +
+                ", fecha_creacion=" + fecha_creacion +
+                ", fecha_actualizacion=" + fecha_actualizacion +
+                '}';
+    }
 }
