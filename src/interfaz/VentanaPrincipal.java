@@ -23,6 +23,7 @@ public class VentanaPrincipal extends JFrame {
         panelBotones.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 10));
         
         JButton btninicio = new JButton("Inicio");
+        JButton btnAgregar = new JButton("Agregar");
         
 
         // Panel principal de productos
