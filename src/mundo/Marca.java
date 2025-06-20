@@ -69,7 +69,7 @@ public class Marca {
 	}
 	
 	
-	public boolean setFecha_creacion(Date fecha_creacion) 
+	public void setFecha_creacion(Date fecha_creacion) 
 	{
 		this.fecha_creacion = fecha_creacion;
 	}
