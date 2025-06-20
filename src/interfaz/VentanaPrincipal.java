@@ -52,7 +52,10 @@ public class VentanaPrincipal extends JFrame {
         
         panelCentral.add(panelAgregar, "Agregar");
         panelCentral.add(panelListar, "Listar");
-
+        
+        
+        add(panelCentral, BorderLayout.CENTER);
+        
         // Panel principal de productos
         PanelProductos panelProductos = new PanelProductos();
         add(panelProductos, BorderLayout.CENTER);
