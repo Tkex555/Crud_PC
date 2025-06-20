@@ -22,7 +22,7 @@ public class ProductoDAOimpl implements ProductoDAO {
 
     @Override
     public void agregar(Producto producto) {
-        String sql = "INSERT INTO productos (nombre, modelo, descripcion, precio, stock, especificaciones_tecnicas, id_categoria, id_marca) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO productos (nombre, modelo, descripcion, precio, stock, especificaciones_tecnicas, id_categoria, id_marca, imagen_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, producto.getNombre());
@@ -33,6 +33,7 @@ public class ProductoDAOimpl implements ProductoDAO {
             stmt.setString(6, producto.getEspecificaciones_tecnicas());
             stmt.setInt(7, producto.getId_categoria());
             stmt.setInt(8, producto.getId_marca());
+            stmt.setString(9, producto.getImagen_url());
             stmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error al agregar producto: " + e.getMessage());
@@ -99,7 +100,8 @@ public class ProductoDAOimpl implements ProductoDAO {
                     rs.getInt("stock"),
                     rs.getString("especificaciones_tecnicas"),
                     rs.getInt("id_categoria"),
-                    rs.getInt("id_marca")
+                    rs.getInt("id_marca"),
+                    rs.getString("imagen_url") 
                 );
 
                 return producto;
@@ -133,7 +135,8 @@ public class ProductoDAOimpl implements ProductoDAO {
 	                    rs.getInt("stock"),
 	                    rs.getString("especificaciones_tecnicas"),
 	                    rs.getInt("id_categoria"),
-	                    rs.getInt("id_marca")
+	                    rs.getInt("id_marca"),
+	                    rs.getString("imagen_url")
 	                );
 	            productos.add(p);
 	        }
@@ -165,7 +168,8 @@ public class ProductoDAOimpl implements ProductoDAO {
 	                rs.getInt("stock"),
 	                rs.getString("especificaciones_tecnicas"),
 	                rs.getInt("id_categoria"),
-	                rs.getInt("id_marca")
+	                rs.getInt("id_marca"),
+	                rs.getString("imagen_url")
 	            );
 
 	            productos.add(producto);
