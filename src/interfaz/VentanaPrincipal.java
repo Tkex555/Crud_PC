@@ -48,6 +48,10 @@ public class VentanaPrincipal extends JFrame {
         
         PanelAgregarProducto panelAgregar = new PanelAgregarProducto();
         PanelProductos panelListar = new PanelProductos();
+        
+        
+        panelCentral.add(panelAgregar, "Agregar");
+        panelCentral.add(panelListar, "Listar");
 
         // Panel principal de productos
         PanelProductos panelProductos = new PanelProductos();
