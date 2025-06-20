@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import conexion.conexion;
 import mundo.Producto;
 
+
 public class ProductoDAOimpl implements ProductoDAO {
 	
 	private Connection conn;
@@ -21,7 +22,7 @@ public class ProductoDAOimpl implements ProductoDAO {
 
     @Override
     public void agregar(Producto producto) {
-        String sql = "INSERT INTO productos (nombre, modelo, descripcion, precio, stock, codigo_barras, especificaciones_tecnicas, imagen_url, id_categoria, id_marca) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO productos (nombre, modelo, descripcion, precio, stock, especificaciones_tecnicas, id_categoria, id_marca) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, producto.getNombre());
@@ -29,16 +30,15 @@ public class ProductoDAOimpl implements ProductoDAO {
             stmt.setString(3, producto.getDescripcion());
             stmt.setDouble(4, producto.getPrecio());
             stmt.setInt(5, producto.getStock());
-            stmt.setString(6, producto.getCodigoBarras());
-            stmt.setString(7, producto.getEspecificacionesTecnicas());
-            stmt.setString(8, producto.getImagenUrl());
-            stmt.setInt(9, producto.getCategoria().getId());
-            stmt.setInt(10, producto.getMarca().getId());
+            stmt.setString(6, producto.getEspecificaciones_tecnicas());
+            stmt.setInt(7, producto.getId_categoria());
+            stmt.setInt(8, producto.getId_marca());
             stmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error al agregar producto: " + e.getMessage());
         }
     }
+
 	
 	@Override
 	public void actualizar(Producto producto) {
