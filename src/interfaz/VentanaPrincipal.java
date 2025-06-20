@@ -32,6 +32,9 @@ public class VentanaPrincipal extends JFrame {
         panelBotones.add(btnListar);
         add(panelBotones, BorderLayout.WEST);
         
+        // Panel central con CardLayout
+        cardLayout = new CardLayout();
+        
 
         // Panel principal de productos
         PanelProductos panelProductos = new PanelProductos();
