@@ -80,13 +80,38 @@ public class ProductoDAOimpl implements ProductoDAO {
         }
     }
 
-	
-	@Override
-	public Producto buscarPorId(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
+    @Override
+    public Producto buscarPorId(int id) {
+        String sql = "SELECT * FROM productos WHERE id = ?";
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                // Creamos el objeto producto con base en el constructor que espera solo los IDs de categoría y marca
+                Producto producto = new Producto(
+                    rs.getInt("id"),
+                    rs.getString("nombre"),
+                    rs.getString("modelo"),
+                    rs.getString("descripcion"),
+                    rs.getDouble("precio"),
+                    rs.getInt("stock"),
+                    rs.getString("especificaciones_tecnicas"),
+                    rs.getInt("id_categoria"),
+                    rs.getInt("id_marca")
+                );
+
+                return producto;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al buscar producto por ID: " + e.getMessage());
+        }
+
+        return null;
+    }
+
 	@Override
 	public List<Producto> listar() {
 	    List<Producto> productos = new ArrayList<>();
