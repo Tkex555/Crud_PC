@@ -27,4 +27,9 @@ public class ProductoDAOimpl implements ProductoDAO {
 		// TODO Auto-generated method stub
 	}
 	
+	@Override
+	public void eliminar(int id) {
+		// TODO Auto-generated method stub
+	}
+	
 }
