@@ -63,15 +63,15 @@ public class Marca {
 	}
 	
 	
-	public boolean isEstado() 
+	public Date getFecha_creacion() 
 	{
-		return estado;
+		return fecha_creacion;
 	}
 	
 	
-	public boolean setEstado(boolean estado) 
+	public boolean setFecha_creacion(Date fecha_creacion) 
 	{
-		this.estado = estado;
+		this.fecha_creacion = fecha_creacion;
 	}
 	
 	
