@@ -43,6 +43,10 @@ public class VentanaPrincipal extends JFrame {
         imagenInicio.setIcon(icono);
         imagenInicio.setHorizontalAlignment(SwingConstants.CENTER);
         panelCentral.add(imagenInicio, "Inicio");
+        
+        //panales del Crud
+        
+        PanelAgregarProducto panelAgregar = new PanelAgregarProducto();
 
         // Panel principal de productos
         PanelProductos panelProductos = new PanelProductos();
