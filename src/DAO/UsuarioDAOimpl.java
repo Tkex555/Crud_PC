@@ -1,33 +1,50 @@
 package DAO;
 
-import mundo.Usuario;
 import conexion.conexion;
+import mundo.Usuario;
 
-public class UsuarioDAOimpl extends conexion implements UsuarioDAO {
+import java.sql.*;
 
-	@Override
-	public void registrar(Usuario usuario) {
-		// Implementación del método para registrar un usuario
-		// Aquí se conectaría a la base de datos y ejecutaría la lógica de inserción
-	}
+public class UsuarioDAOimpl implements UsuarioDAO {
+
+    private Connection conn;
+
+    public UsuarioDAOimpl() {
+        this.conn = conexion.getConnection();
+        if (this.conn == null) {
+            System.out.println("La conexión es nula. Verifica los datos.");
+        }
+    }
+
+    @Override
+    public void registrar(Usuario usuario) {
+        String sql = "INSERT INTO usuarios (id_persona, usuario, password_hash, rol) VALUES (?, ?, ?, ?)";
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, usuario.getPersona().getId());
+            stmt.setString(2, usuario.getUsuario());
+            stmt.setString(3, usuario.getContraseña());
+            stmt.setString(4, usuario.getRol());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error al registrar usuario: " + e.getMessage());
+        }
+    }
 
 	@Override
 	public Usuario iniciarSesion(String usuario, String passwordHash) {
-		// Implementación del método para iniciar sesión
-		// Aquí se conectaría a la base de datos y verificaría las credenciales
-		return null; // Retornar el usuario si las credenciales son correctas
+		return null;
 	}
 
 	@Override
 	public Usuario buscarPorId(int id) {
-		// Implementación del método para buscar un usuario por ID
-		return null; // Retornar el usuario encontrado o null si no existe
+		return null;
 	}
 
 	@Override
 	public boolean existeUsuario(String usuario) {
-		// Implementación del método para verificar si un usuario existe
-		return false; // Retornar true si el usuario existe, false en caso contrario
+		return false;
 	}
 
+    // Otros métodos...
 }
