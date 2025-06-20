@@ -10,11 +10,15 @@ public class VentanaPrincipal extends JFrame {
 	private JPanel panelCentral;
 
     public VentanaPrincipal() {
-        setTitle("Gestión de Productos");
+        setTitle("Gestión de Computadoras");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(900, 600);
         setLocationRelativeTo(null); // Centrar ventana
         setLayout(new BorderLayout());
+        
+        
+        //botones
+        JPanel panelBotones = new JPanel(new GringLayout(3, 1, 10, 10));
 
         // Panel principal de productos
         PanelProductos panelProductos = new PanelProductos();
