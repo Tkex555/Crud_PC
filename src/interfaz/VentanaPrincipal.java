@@ -7,7 +7,7 @@ public class VentanaPrincipal extends JFrame {
 	
 	
 	private CardLayout cardLayout;
-	privateJPanel panelCentral;
+	private JPanel panelCentral;
 
     public VentanaPrincipal() {
         setTitle("Gestión de Productos");
