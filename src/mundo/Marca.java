@@ -8,10 +8,10 @@ public class Marca {
 	private String nombre;
 	private String pais_origen;
 	private String descripcion;
-	private String fecha_creacion;
+	private Date fecha_creacion;
 	
 	
-	public Marca(int id, String nombre, String pais_origen, String descripcion, String fecha_creacion) {
+	public Marca(int id, String nombre, String pais_origen, String descripcion, Date fecha_creacion) {
 		this.id = id;
 		this.nombre = nombre;
 		this.pais_origen = pais_origen;
