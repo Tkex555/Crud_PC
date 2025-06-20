@@ -47,6 +47,7 @@ public class VentanaPrincipal extends JFrame {
         //panales del Crud
         
         PanelAgregarProducto panelAgregar = new PanelAgregarProducto();
+        PanelProductos panelListar = new PanelProductos();
 
         // Panel principal de productos
         PanelProductos panelProductos = new PanelProductos();
