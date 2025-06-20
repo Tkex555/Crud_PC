@@ -30,6 +30,7 @@ public class VentanaPrincipal extends JFrame {
         panelBotones.add(btninicio);
         panelBotones.add(btnAgregar);
         panelBotones.add(btnListar);
+        add(panelBotones, BorderLayout.WEST);
         
 
         // Panel principal de productos
