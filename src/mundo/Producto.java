@@ -13,12 +13,13 @@ public class Producto {
 	private String especificaciones_tecnicas;
 	private int id_categoria;
 	private int id_marca;
+	private String imagen_url;
 	private Date fecha_creacion;
 	private Date fecha_actualizacion;
 	
 	public Producto(int id, String nombre, String modelo, String descripcion, 
             double precio, int stock, String especificaciones_tecnicas, 
-            int id_categoria, int id_marca) 
+            int id_categoria, int id_marca, String imagen_url) 
 	{
 		this.id = id;
 		this.nombre = nombre;
@@ -29,6 +30,7 @@ public class Producto {
 		this.especificaciones_tecnicas = especificaciones_tecnicas;
 		this.id_categoria = id_categoria;
 		this.id_marca = id_marca;
+		this.imagen_url = imagen_url;
 		this.fecha_creacion = new Date();
 		this.fecha_actualizacion = new Date();
 	}
@@ -124,6 +126,14 @@ public class Producto {
     public void setId_marca(int id_marca) 
     {
         this.id_marca = id_marca;
+    }
+    
+    public String getImagen_url() {
+		return imagen_url;
+	}
+    
+    public void setImagen_url(String imagen_url) {
+    	this.imagen_url = imagen_url;
     }
     
     public Date getFecha_creacion() {
