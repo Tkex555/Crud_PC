@@ -4,6 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class VentanaPrincipal extends JFrame {
+	
+	
+	private CardLayout cardLayout;
+	privateJPanel panelCentral;
 
     public VentanaPrincipal() {
         setTitle("Gestión de Productos");
