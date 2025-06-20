@@ -5,6 +5,7 @@ public class Producto {
 	private int id;
 	private String nombre;
 	private String descripcion;
+	private String modelo;
 	private double precio;
 	private int stock;
 	private String especicaiones_tecnicas;
@@ -20,6 +21,7 @@ public class Producto {
 		this.id = id;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
+		this.modelo = modelo;
 		this.precio = precio;
 		this.stock = stock;
 		this.especicaiones_tecnicas = especificaciones_tecnicas;
@@ -44,4 +46,36 @@ public class Producto {
 	{
 		return nombre;
 	}
+	
+	
+	public void setNombre(String nombre) 
+	{
+		this.nombre = nombre;
+	}
+	
+	
+	public String getModelo() 
+	{
+        return modelo;
+    }
+
+    public void setModelo(String modelo) 
+    {
+        this.modelo = modelo;
+    }
+
+    public String getDescripcion() 
+    {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) 
+    {
+        this.descripcion = descripcion;
+    }
+
+    public double getPrecio() 
+    {
+        return precio;
+    }
 }
