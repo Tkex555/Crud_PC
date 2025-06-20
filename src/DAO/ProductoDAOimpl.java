@@ -58,9 +58,37 @@ public class ProductoDAOimpl implements ProductoDAO {
 	
 	@Override
 	public List<Producto> listar() {
-		// TODO Auto-generated method stub
-		return null;
+	    List<Producto> productos = new ArrayList<>();
+	    String sql = "SELECT p.*, c.nombre AS nombre_categoria, m.nombre AS nombre_marca " +
+	                 "FROM productos p " +
+	                 "LEFT JOIN categorias c ON p.id_categoria = c.id " +
+	                 "LEFT JOIN marcas m ON p.id_marca = m.id";
+
+	    try (PreparedStatement stmt = conn.prepareStatement(sql);
+	         ResultSet rs = stmt.executeQuery()) {
+
+	        while (rs.next()) {
+	            Producto p = new Producto(
+	                    rs.getInt("id"),
+	                    rs.getString("nombre"),
+	                    rs.getString("modelo"),
+	                    rs.getString("descripcion"),
+	                    rs.getDouble("precio"),
+	                    rs.getInt("stock"),
+	                    rs.getString("especificaciones_tecnicas"),
+	                    rs.getInt("id_categoria"),
+	                    rs.getInt("id_marca")
+	                );
+	            productos.add(p);
+	        }
+
+	    } catch (SQLException e) {
+	        System.out.println("Error al listar productos: " + e.getMessage());
+	    }
+
+	    return productos;
 	}
+
 	
 	@Override
 	public List<Producto> buscarPorNombre(String nombre) {
