@@ -24,6 +24,7 @@ public class VentanaPrincipal extends JFrame {
         
         JButton btninicio = new JButton("Inicio");
         JButton btnAgregar = new JButton("Agregar");
+        jButton btnListar = new JButton("Listar");
         
 
         // Panel principal de productos
