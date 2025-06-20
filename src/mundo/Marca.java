@@ -6,8 +6,9 @@ public class Marca {
 	
 	private int id;
 	private String nombre;
+	private String pais_origen;
 	private String descripcion;
-	private String estado;
+	private String fecha_creacion;
 	
 	
 	public Marca(int id, String nombre, String descripcion, String estado) {
