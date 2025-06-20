@@ -39,4 +39,9 @@ public class Producto {
 	{
 		this.id = id;
 	}
+	
+	public String getNombre() 
+	{
+		return nombre;
+	}
 }
