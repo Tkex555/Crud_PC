@@ -38,4 +38,9 @@ public class ProductoDAOimpl implements ProductoDAO {
 		return null;
 	}
 	
+	@Override
+	public List<Producto> listar() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
