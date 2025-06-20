@@ -21,4 +21,10 @@ public class ProductoDAOimpl implements ProductoDAO {
 	public void agregar(Producto producto) {
 		// TODO Auto-generated method stub
 	}
+	
+	@Override
+	public void actualizar(Producto producto) {
+		// TODO Auto-generated method stub
+	}
+	
 }
