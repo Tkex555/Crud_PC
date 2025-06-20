@@ -77,10 +77,11 @@ public class Marca {
 	
 	public String toString() {
         return "Marca{" +
-                "id_marca=" + id +
+                "id=" + id +
                 ", nombre='" + nombre + '\'' +
+                ", pais_origen='" + pais_origen + '\'' +
                 ", descripcion='" + descripcion + '\'' +
-                ", estado=" + estado +
+                ", fecha_creacion=" + fecha_creacion +
                 '}';
     }
 }
