@@ -17,6 +17,10 @@ public class Producto {
 	private Date fecha_creacion;
 	private Date fecha_actualizacion;
 	
+	public Producto() {
+		
+	}
+	
 	public Producto(int id, String nombre, String modelo, String descripcion, 
             double precio, int stock, String especificaciones_tecnicas, 
             int id_categoria, int id_marca, String imagen_url) 
