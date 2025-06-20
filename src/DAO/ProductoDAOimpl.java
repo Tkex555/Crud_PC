@@ -62,10 +62,24 @@ public class ProductoDAOimpl implements ProductoDAO {
         }
     }
 
-	@Override
-	public void eliminar(int id) {
-		// TODO Auto-generated method stub
-	}
+    @Override
+    public void eliminar(int id) {
+        String sql = "DELETE FROM productos WHERE id = ?";
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            int filas = stmt.executeUpdate();
+
+            if (filas > 0) {
+                System.out.println("Producto eliminado exitosamente.");
+            } else {
+                System.out.println("No se encontró un producto con ese ID.");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al eliminar producto: " + e.getMessage());
+        }
+    }
+
 	
 	@Override
 	public Producto buscarPorId(int id) {
