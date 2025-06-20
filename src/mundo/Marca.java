@@ -11,11 +11,12 @@ public class Marca {
 	private String fecha_creacion;
 	
 	
-	public Marca(int id, String nombre, String descripcion, String estado) {
+	public Marca(int id, String nombre, String pais_origen, String descripcion, String fecha_creacion) {
 		this.id = id;
 		this.nombre = nombre;
+		this.pais_origen = pais_origen;
 		this.descripcion = descripcion;
-		this.estado = estado;
+		this.fecha_creacion = fecha_creacion;
 	}
 	
 	
