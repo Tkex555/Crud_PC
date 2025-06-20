@@ -56,5 +56,14 @@ public class Categoria {
 	{
 		this.descripcion = descripcion;
 	}
+	
+	public String toString() {
+        return "Categoria{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", fecha_creacion=" + fecha_creacion +
+                '}';
+    }
 
 }
