@@ -148,8 +148,34 @@ public class ProductoDAOimpl implements ProductoDAO {
 	
 	@Override
 	public List<Producto> buscarPorNombre(String nombre) {
-		// TODO Auto-generated method stub
-		return null;
+	    List<Producto> productos = new ArrayList<>();
+	    String sql = "SELECT * FROM productos WHERE nombre LIKE ?";
+
+	    try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+	        stmt.setString(1, "%" + nombre + "%");
+	        ResultSet rs = stmt.executeQuery();
+
+	        while (rs.next()) {
+	            Producto producto = new Producto(
+	                rs.getInt("id"),
+	                rs.getString("nombre"),
+	                rs.getString("modelo"),
+	                rs.getString("descripcion"),
+	                rs.getDouble("precio"),
+	                rs.getInt("stock"),
+	                rs.getString("especificaciones_tecnicas"),
+	                rs.getInt("id_categoria"),
+	                rs.getInt("id_marca")
+	            );
+
+	            productos.add(producto);
+	        }
+
+	    } catch (SQLException e) {
+	        System.out.println("Error al buscar productos por nombre: " + e.getMessage());
+	    }
+
+	    return productos;
 	}
 	
 }
