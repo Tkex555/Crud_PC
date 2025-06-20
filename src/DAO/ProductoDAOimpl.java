@@ -40,11 +40,28 @@ public class ProductoDAOimpl implements ProductoDAO {
     }
 
 	
-	@Override
-	public void actualizar(Producto producto) {
-		// TODO Auto-generated method stub
-	}
-	
+    @Override
+    public void actualizar(Producto producto) {
+        String sql = "UPDATE productos SET nombre = ?, modelo = ?, descripcion = ?, precio = ?, stock = ?, especificaciones_tecnicas = ?, id_categoria = ?, id_marca = ? WHERE id = ?";
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, producto.getNombre());
+            stmt.setString(2, producto.getModelo());
+            stmt.setString(3, producto.getDescripcion());
+            stmt.setDouble(4, producto.getPrecio());
+            stmt.setInt(5, producto.getStock());
+            stmt.setString(6, producto.getEspecificaciones_tecnicas());
+            stmt.setInt(7, producto.getId_categoria());
+            stmt.setInt(8, producto.getId_marca());
+            stmt.setInt(9, producto.getId());
+
+            stmt.executeUpdate();
+            System.out.println("Producto actualizado correctamente.");
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar producto: " + e.getMessage());
+        }
+    }
+
 	@Override
 	public void eliminar(int id) {
 		// TODO Auto-generated method stub
