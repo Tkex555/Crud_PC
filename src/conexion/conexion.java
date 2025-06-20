@@ -39,7 +39,9 @@ public class conexion {
         return connection;
     }
 	
-	
+	private conexion(Connection connection) {
+		conexion.connection = connection;
+	}
 	
 	
 	public static void closeConnection() {
