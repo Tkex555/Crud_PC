@@ -59,6 +59,7 @@ public class VentanaPrincipal extends JFrame {
         // Acciones de los botones
         btninicio.addActionListener(e -> cardLayout.show(panelCentral, "Inicio"));
         btnAgregar.addActionListener(e -> cardLayout.show(panelCentral, "Agregar"));
+        btnListar.addActionListener(e -> cardLayout.show(panelCentral, "Listar"));
 
         setVisible(true);
     }
