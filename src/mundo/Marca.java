@@ -41,6 +41,11 @@ public class Marca {
 		this.nombre = nombre;
 	}
 	
+	public String getPais_origen() 
+	{
+		return pais_origen;
+	}
+	
 	
 	public String getDescripcion() 
 	{
