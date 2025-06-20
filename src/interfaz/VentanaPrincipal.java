@@ -56,9 +56,8 @@ public class VentanaPrincipal extends JFrame {
         
         add(panelCentral, BorderLayout.CENTER);
         
-        // Panel principal de productos
-        PanelProductos panelProductos = new PanelProductos();
-        add(panelProductos, BorderLayout.CENTER);
+        // Acciones de los botones
+        btninicio.addActionListener(e -> cardLayout.show(panelCentral, "Inicio"));
 
         setVisible(true);
     }
