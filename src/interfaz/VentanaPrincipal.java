@@ -34,6 +34,7 @@ public class VentanaPrincipal extends JFrame {
         
         // Panel central con CardLayout
         cardLayout = new CardLayout();
+        panelCentral = new JPanel(cardLayout);
         
 
         // Panel principal de productos
