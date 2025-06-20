@@ -36,6 +36,11 @@ public class VentanaPrincipal extends JFrame {
         cardLayout = new CardLayout();
         panelCentral = new JPanel(cardLayout);
         
+        //imagen 
+        
+        JLabel imagenInicio = new JLabel();
+        imagenInicio.setIcon(new ImageIcon("data/imagenes/Logoprincipal.png")); 
+        
 
         // Panel principal de productos
         PanelProductos panelProductos = new PanelProductos();
