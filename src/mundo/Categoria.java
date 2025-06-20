@@ -35,5 +35,16 @@ public class Categoria {
 	{
 		this.nombre = nombre;
 	}
+	
+	public Date getFecha_creacion() 
+	{
+		return fecha_creacion;
+	}
+	
+	
+	public void setFecha_creacion(Date fecha_creacion) 
+	{
+		this.fecha_creacion = fecha_creacion;
+	}
 
 }
