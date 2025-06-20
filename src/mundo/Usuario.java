@@ -12,7 +12,7 @@ public class Usuario {
 	private Date fechaCreacion;
 	private Date ultimoAcceso;
 	
-	public Usuario(int id, Personas persona, String usuario, String constraseña, String rol, Date fechaCreacion, Date ultimoAcceso) {
+	public Usuario(int id, Personas persona, String usuario, String contraseña, String rol, Date fechaCreacion, Date ultimoAcceso) {
 		this.id = id;
 		this.persona = persona;
 		this.usuario = usuario;
