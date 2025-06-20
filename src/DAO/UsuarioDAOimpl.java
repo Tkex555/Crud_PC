@@ -34,6 +34,4 @@ public class UsuarioDAOimpl implements UsuarioDAO {
 	public boolean existeUsuario(String usuario) {
 		return false;
 	}
-
-    // Otros métodos...
 }
