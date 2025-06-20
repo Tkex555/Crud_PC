@@ -46,5 +46,15 @@ public class Categoria {
 	{
 		this.fecha_creacion = fecha_creacion;
 	}
+	
+	public String getDescripcion() 
+	{
+		return descripcion;
+	}
+	
+	public void setDescripcion(String descripcion) 
+	{
+		this.descripcion = descripcion;
+	}
 
 }
