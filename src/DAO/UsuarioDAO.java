@@ -1,10 +1,12 @@
 package DAO;
 
-public class UsuarioDAO {
+import mundo.Usuario;
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
+public interface UsuarioDAO {
+    void registrar(Usuario usuario);
+    Usuario iniciarSesion(String usuario, String passwordHash);
+    Usuario buscarPorId(int id);
+    boolean existeUsuario(String usuario);
+    
 }
+
