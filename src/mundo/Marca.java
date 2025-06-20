@@ -1,5 +1,7 @@
 package mundo;
 
+import java.util.Date;
+
 public class Marca {
 	
 	private int id;
