@@ -8,11 +8,11 @@ public class Categoria {
 	private Date fecha_creacion;
 	private String descripcion;
 
-	public Categoria(int id, String nombre, Date fecha_creacion, String descripcion) {
+	public Categoria(int id, String nombre, String descripcion, Date fecha_creacion) {
 		this.id = id;
 		this.nombre = nombre;
-		this.fecha_creacion = fecha_creacion;
 		this.descripcion = descripcion;
+		this.fecha_creacion = fecha_creacion;
 	}
 	
 	

@@ -1,10 +1,13 @@
 package DAO;
 
-public class ProductoDAO {
+import mundo.Producto;
+import java.util.List;
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
+public interface ProductoDAO {
+    void agregar(Producto producto);
+    void actualizar(Producto producto);
+    void eliminar(int id);
+    Producto buscarPorId(int id);
+    List<Producto> listar();
+    List<Producto> buscarPorNombre(String nombre);
 }
