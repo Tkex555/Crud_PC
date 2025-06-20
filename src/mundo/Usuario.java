@@ -7,16 +7,16 @@ public class Usuario {
 	private int id;
 	private Personas persona;
 	private String usuario;
-	private String passwordHash;
+	private String contraseña;
 	private String rol;
 	private Date fechaCreacion;
 	private Date ultimoAcceso;
 	
-	public Usuario(int id, Personas persona, String usuario, String passwordHash, String rol, Date fechaCreacion, Date ultimoAcceso) {
+	public Usuario(int id, Personas persona, String usuario, String constraseña, String rol, Date fechaCreacion, Date ultimoAcceso) {
 		this.id = id;
 		this.persona = persona;
 		this.usuario = usuario;
-		this.passwordHash = passwordHash;
+		this.contraseña = contraseña;
 		this.rol = rol;
 		this.fechaCreacion = fechaCreacion;
 		this.ultimoAcceso = ultimoAcceso;
@@ -46,12 +46,12 @@ public class Usuario {
 		this.usuario = usuario;
 	}
 	
-	public String getPasswordHash() {
-		return passwordHash;
+	public String getContraseña() {
+		return contraseña;
 	}
 	
-	public void setPasswordHash(String passwordHash) {
-		this.passwordHash = passwordHash;
+	public void setContraseña(String contraseña) {
+		this.contraseña = contraseña;
 	}
 	
 	public String getRol() {
