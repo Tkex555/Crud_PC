@@ -28,12 +28,14 @@ public class PanelProductos extends JPanel {
         txtBuscar = new JTextField(20);
         btnBuscar = new JButton("Buscar");
         btnAgregar = new JButton("Agregar Producto");
-
+        JButton btnEliminar = new JButton("Eliminar seleccionado");
+        
         panelSuperior.add(new JLabel("Buscar:"));
         panelSuperior.add(txtBuscar);
         panelSuperior.add(btnBuscar);
         panelSuperior.add(btnAgregar);
-
+        panelSuperior.add(btnEliminar);
+        
         // Modelo de tabla con imagen
         modeloTabla = new DefaultTableModel(new String[]{"ID", "Nombre", "Modelo", "Precio", "Imagen"}, 0) {
             @Override
@@ -47,7 +49,30 @@ public class PanelProductos extends JPanel {
                 return false; // todas las celdas no editables
             }
         };
+        
+        btnEliminar.addActionListener(e -> {
+            int fila = tabla.getSelectedRow();
+            if (fila >= 0) {
+                int idProducto = (int) modeloTabla.getValueAt(fila, 0);
 
+                int confirmar = JOptionPane.showConfirmDialog(this,
+                        "¿Estás seguro de eliminar el producto con ID " + idProducto + "?",
+                        "Confirmar eliminación",
+                        JOptionPane.YES_NO_OPTION);
+                
+                if (confirmar == JOptionPane.YES_OPTION) {
+                    ProductoDAO dao = new ProductoDAOimpl();
+                    dao.eliminar(idProducto);
+                    cargarProductos(""); // recargar tabla
+                    JOptionPane.showMessageDialog(this, "Producto eliminado correctamente.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Selecciona un producto para eliminar.");
+            }
+        });
+
+        
+        
         tabla = new JTable(modeloTabla);
         tabla.setRowHeight(60);
 
