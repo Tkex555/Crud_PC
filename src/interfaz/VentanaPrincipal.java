@@ -4,17 +4,62 @@ import javax.swing.*;
 import java.awt.*;
 
 public class VentanaPrincipal extends JFrame {
+	
+	
+	private CardLayout cardLayout;
+	private JPanel panelCentral;
 
     public VentanaPrincipal() {
-        setTitle("Gestión de Productos");
+        setTitle("Gestión de Computadoras");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(900, 600);
         setLocationRelativeTo(null); // Centrar ventana
         setLayout(new BorderLayout());
-
-        // Panel principal de productos
-        PanelProductos panelProductos = new PanelProductos();
-        add(panelProductos, BorderLayout.CENTER);
+        
+        
+        //botones
+        JPanel panelBotones = new JPanel(new GridLayout(3, 1, 10, 10));
+        panelBotones.setBackground(new Color(230, 230, 250));
+        panelBotones.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 10));
+        
+        JButton btninicio = new JButton("Inicio");
+        JButton btnAgregar = new JButton("Agregar");
+        JButton btnListar = new JButton("Listar");
+        
+        // Agregar botones al panel
+        panelBotones.add(btninicio);
+        panelBotones.add(btnAgregar);
+        panelBotones.add(btnListar);
+        add(panelBotones, BorderLayout.WEST);
+        
+        // Panel central con CardLayout
+        cardLayout = new CardLayout();
+        panelCentral = new JPanel(cardLayout);
+        
+        //imagen 
+        
+        JLabel imagenInicio = new JLabel();
+        ImageIcon icono = new ImageIcon("data/imagenes/Logoprincipal.png"); 
+        imagenInicio.setIcon(icono);
+        imagenInicio.setHorizontalAlignment(SwingConstants.CENTER);
+        panelCentral.add(imagenInicio, "Inicio");
+        
+        //paneles del Crud
+        
+        PanelAgregarProducto panelAgregar = new PanelAgregarProducto();
+        PanelProductos panelListar = new PanelProductos();
+        
+        
+        panelCentral.add(panelAgregar, "Agregar");
+        panelCentral.add(panelListar, "Listar");
+        
+        
+        add(panelCentral, BorderLayout.CENTER);
+        
+        // Acciones de los botones
+        btninicio.addActionListener(e -> cardLayout.show(panelCentral, "Inicio"));
+        btnAgregar.addActionListener(e -> cardLayout.show(panelCentral, "Agregar"));
+        btnListar.addActionListener(e -> cardLayout.show(panelCentral, "Listar"));
 
         setVisible(true);
     }
