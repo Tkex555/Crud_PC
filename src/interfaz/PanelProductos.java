@@ -49,7 +49,19 @@ public class PanelProductos extends JPanel {
                 return false; // todas las celdas no editables
             }
         };
+        
+        btnEliminar.addActionListener(e -> {
+            int fila = tabla.getSelectedRow();
+            if (fila >= 0) {
+                int idProducto = (int) modeloTabla.getValueAt(fila, 0);
 
+                int confirmar = JOptionPane.showConfirmDialog(this,
+                        "¿Estás seguro de eliminar el producto con ID " + idProducto + "?",
+                        "Confirmar eliminación",
+                        JOptionPane.YES_NO_OPTION);
+
+        
+        
         tabla = new JTable(modeloTabla);
         tabla.setRowHeight(60);
 
