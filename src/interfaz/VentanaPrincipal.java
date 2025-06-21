@@ -39,12 +39,12 @@ public class VentanaPrincipal extends JFrame {
         //imagen 
         
         JLabel imagenInicio = new JLabel();
-        imagenInicio.setIcon(new ImageIcon("data/imagenes/Logoprincipal.png")); 
+        ImageIcon icono = new ImageIcon("data/imagenes/Logoprincipal.png"); 
         imagenInicio.setIcon(icono);
         imagenInicio.setHorizontalAlignment(SwingConstants.CENTER);
         panelCentral.add(imagenInicio, "Inicio");
         
-        //panales del Crud
+        //paneles del Crud
         
         PanelAgregarProducto panelAgregar = new PanelAgregarProducto();
         PanelProductos panelListar = new PanelProductos();
