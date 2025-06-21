@@ -34,7 +34,7 @@ public class PanelProductos extends JPanel {
         panelSuperior.add(txtBuscar);
         panelSuperior.add(btnBuscar);
         panelSuperior.add(btnAgregar);
-        
+        panelSuperior.add(btnEliminar);
         
         // Modelo de tabla con imagen
         modeloTabla = new DefaultTableModel(new String[]{"ID", "Nombre", "Modelo", "Precio", "Imagen"}, 0) {
