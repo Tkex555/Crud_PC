@@ -59,6 +59,17 @@ public class PanelProductos extends JPanel {
                         "¿Estás seguro de eliminar el producto con ID " + idProducto + "?",
                         "Confirmar eliminación",
                         JOptionPane.YES_NO_OPTION);
+                
+                if (confirmar == JOptionPane.YES_OPTION) {
+                    ProductoDAO dao = new ProductoDAOimpl();
+                    dao.eliminar(idProducto);
+                    cargarProductos(""); // recargar tabla
+                    JOptionPane.showMessageDialog(this, "Producto eliminado correctamente.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Selecciona un producto para eliminar.");
+            }
+        });
 
         
         
