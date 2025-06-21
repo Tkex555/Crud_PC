@@ -28,12 +28,14 @@ public class PanelProductos extends JPanel {
         txtBuscar = new JTextField(20);
         btnBuscar = new JButton("Buscar");
         btnAgregar = new JButton("Agregar Producto");
-
+        JButton btnEliminar = new JButton("Eliminar seleccionado");
+        
         panelSuperior.add(new JLabel("Buscar:"));
         panelSuperior.add(txtBuscar);
         panelSuperior.add(btnBuscar);
         panelSuperior.add(btnAgregar);
-
+        
+        
         // Modelo de tabla con imagen
         modeloTabla = new DefaultTableModel(new String[]{"ID", "Nombre", "Modelo", "Precio", "Imagen"}, 0) {
             @Override
