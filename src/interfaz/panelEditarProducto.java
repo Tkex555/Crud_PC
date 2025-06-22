@@ -1,8 +1,8 @@
 package interfaz;
 
-import mundo.Producto;
 import DAO.ProductoDAO;
 import DAO.ProductoDAOimpl;
+import mundo.Producto;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,56 +10,55 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 
-public class PanelAgregarProducto extends JPanel {
 
-    private JTextField txtNombre, txtModelo, txtPrecio, txtStock;
+public class panelEditarProducto extends JPanel {
+	
+	private JTextField txtNombre, txtModelo, txtPrecio, txtStock;
     private JTextArea txtDescripcion, txtEspecificaciones;
     private JComboBox<String> comboCategoria, comboMarca;
-    private JLabel lblImagen, lblImagenPreview;
-    private JButton btnSeleccionarImagen, btnGuardar;
+    private JLabel lblImagenPreview;
+    private JButton btnSeleccionarImagen, btnActualizar;
     private String rutaImagenSeleccionada = "";
-
+    private Producto producto;
+    
     private PanelProductos panelProductos;
     private JFrame ventana;
 
-    public PanelAgregarProducto(PanelProductos panelProductos, JFrame ventana) {
+    public panelEditarProducto(Producto productoExistente, PanelProductos panelProductos, JFrame ventana) {
+        this.producto = productoExistente;
         this.panelProductos = panelProductos;
         this.ventana = ventana;
-
+        
         setLayout(new GridBagLayout());
-        setBorder(BorderFactory.createTitledBorder(
-                BorderFactory.createLineBorder(new Color(100, 149, 237), 2, true),
-                "Agregar Producto",
-                javax.swing.border.TitledBorder.CENTER,
-                javax.swing.border.TitledBorder.TOP,
-                new Font("Arial", Font.BOLD, 18),
-                new Color(100, 149, 237)
-            ));
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 10, 5, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        txtNombre = new JTextField();
-        txtModelo = new JTextField();
-        txtPrecio = new JTextField();
-        txtStock = new JTextField();
-        txtDescripcion = new JTextArea(3, 20);
-        txtDescripcion.setLineWrap(true);
-        txtDescripcion.setWrapStyleWord(true);
-        txtEspecificaciones = new JTextArea(3, 20);
-        txtEspecificaciones.setLineWrap(true);
-        txtEspecificaciones.setWrapStyleWord(true);
+        txtNombre = new JTextField(producto.getNombre());
+        txtModelo = new JTextField(producto.getModelo());
+        txtPrecio = new JTextField(String.valueOf(producto.getPrecio()));
+        txtStock = new JTextField(String.valueOf(producto.getStock()));
+        txtDescripcion = new JTextArea(producto.getDescripcion(), 3, 20);
+        txtEspecificaciones = new JTextArea(producto.getEspecificaciones_tecnicas(), 3, 20);
         comboCategoria = new JComboBox<>(new String[]{"1", "2"});
         comboMarca = new JComboBox<>(new String[]{"1", "2"});
 
-        lblImagen = new JLabel("Sin imagen");
+        comboCategoria.setSelectedItem(String.valueOf(producto.getId_categoria()));
+        comboMarca.setSelectedItem(String.valueOf(producto.getId_marca()));
+
         lblImagenPreview = new JLabel();
         lblImagenPreview.setPreferredSize(new Dimension(100, 100));
         lblImagenPreview.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
-        btnSeleccionarImagen = new JButton("Seleccionar Imagen");
-        btnGuardar = new JButton("Guardar Producto");
+        if (producto.getImagen_url() != null && !producto.getImagen_url().isEmpty()) {
+            rutaImagenSeleccionada = producto.getImagen_url();
+            ImageIcon icon = new ImageIcon(new ImageIcon(rutaImagenSeleccionada).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
+            lblImagenPreview.setIcon(icon);
+        }
 
+        btnSeleccionarImagen = new JButton("Cambiar Imagen");
+        btnActualizar = new JButton("Actualizar");
+        
         int y = 0;
 
         addLabelAndComponent(gbc, "Nombre:", txtNombre, y++);
@@ -70,26 +69,23 @@ public class PanelAgregarProducto extends JPanel {
         addLabelAndComponent(gbc, "Especificaciones:", new JScrollPane(txtEspecificaciones), y++);
         addLabelAndComponent(gbc, "Categoría:", comboCategoria, y++);
         addLabelAndComponent(gbc, "Marca:", comboMarca, y++);
-        addLabelAndComponent(gbc, "Imagen:", btnSeleccionarImagen, y++);
-        addLabelAndComponent(gbc, "", lblImagenPreview, y++);
-
+        addLabelAndComponent(gbc, "Imagen actual:", lblImagenPreview, y++);
+        addLabelAndComponent(gbc, "", btnSeleccionarImagen, y++);
         gbc.gridx = 1;
         gbc.gridy = y;
-        add(btnGuardar, gbc);
+        add(btnActualizar, gbc);
 
         btnSeleccionarImagen.addActionListener(e -> seleccionarImagen());
-        btnGuardar.addActionListener(e -> guardarProducto());
+        btnActualizar.addActionListener(e -> actualizarProducto());
     }
-
     private void addLabelAndComponent(GridBagConstraints gbc, String label, Component comp, int y) {
         gbc.gridx = 0;
         gbc.gridy = y;
         add(new JLabel(label), gbc);
-
         gbc.gridx = 1;
         add(comp, gbc);
     }
-
+    
     private void seleccionarImagen() {
         JFileChooser fileChooser = new JFileChooser();
         int resultado = fileChooser.showOpenDialog(this);
@@ -100,21 +96,15 @@ public class PanelAgregarProducto extends JPanel {
             try {
                 Files.copy(archivo.toPath(), destino.toPath(), StandardCopyOption.REPLACE_EXISTING);
                 rutaImagenSeleccionada = destino.getPath();
-
-                ImageIcon icon = new ImageIcon(new ImageIcon(rutaImagenSeleccionada)
-                        .getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
+                ImageIcon icon = new ImageIcon(new ImageIcon(rutaImagenSeleccionada).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
                 lblImagenPreview.setIcon(icon);
-                lblImagen.setText(archivo.getName());
-
             } catch (IOException e) {
                 JOptionPane.showMessageDialog(this, "Error al copiar imagen: " + e.getMessage());
             }
         }
     }
-
-    private void guardarProducto() {
+    private void actualizarProducto() {
         try {
-            Producto producto = new Producto();
             producto.setNombre(txtNombre.getText());
             producto.setModelo(txtModelo.getText());
             producto.setPrecio(Double.parseDouble(txtPrecio.getText()));
@@ -126,17 +116,18 @@ public class PanelAgregarProducto extends JPanel {
             producto.setImagen_url(rutaImagenSeleccionada);
 
             ProductoDAO dao = new ProductoDAOimpl();
-            dao.agregar(producto);
+            dao.actualizar(producto);
 
-            JOptionPane.showMessageDialog(this, "Producto guardado correctamente.");
-            panelProductos.cargarProductos("");
+            panelProductos.cargarProductos(""); // Actualiza la tabla
+            JOptionPane.showMessageDialog(this, "Producto actualizado correctamente.");
 
             if (ventana != null && ventana != SwingUtilities.getWindowAncestor(this)) {
                 ventana.dispose(); // solo si fue abierto en una ventana secundaria
             }
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al guardar: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Error al actualizar: " + e.getMessage());
         }
     }
+
 }

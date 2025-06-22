@@ -73,7 +73,27 @@ public class PanelProductos extends JPanel {
             }
         });
 
-        
+        btnActualizar.addActionListener(e -> {
+            int fila = tabla.getSelectedRow();
+            if (fila >= 0) {
+                int idProducto = (int) modeloTabla.getValueAt(fila, 0);
+                ProductoDAO dao = new ProductoDAOimpl();
+                Producto producto = dao.buscarPorId(idProducto);
+                
+                if (producto != null) {
+                    JFrame frame = new JFrame("Actualizar Producto");
+                    frame.add(new panelEditarProducto(producto, this, frame));
+                    frame.setSize(500, 500);
+                    frame.setLocationRelativeTo(null);
+                    frame.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Producto no encontrado.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Selecciona un producto para actualizar.");
+            }
+        });
+
         
         tabla = new JTable(modeloTabla);
         tabla.setRowHeight(60);
@@ -100,7 +120,7 @@ public class PanelProductos extends JPanel {
         // Acción botón Agregar
         btnAgregar.addActionListener(e -> {
             JFrame frame = new JFrame("Agregar Producto");
-            frame.add(new PanelAgregarProducto());
+            frame.add(new PanelAgregarProducto(this, frame));
             frame.setSize(500, 500);
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
@@ -129,7 +149,7 @@ public class PanelProductos extends JPanel {
         });
     }
 
-    private void cargarProductos(String filtro) {
+    void cargarProductos(String filtro) {
         modeloTabla.setRowCount(0); // limpiar tabla
         ProductoDAO dao = new ProductoDAOimpl();
 
