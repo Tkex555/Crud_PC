@@ -19,7 +19,13 @@ public class PanelAgregarProducto extends JPanel {
     private JButton btnSeleccionarImagen, btnGuardar;
     private String rutaImagenSeleccionada = "";
 
-    public PanelAgregarProducto() {
+    private PanelProductos panelProductos;
+    private JFrame ventana;
+
+    public PanelAgregarProducto(PanelProductos panelProductos, JFrame ventana) {
+        this.panelProductos = panelProductos;
+        this.ventana = ventana;
+
         setLayout(new GridBagLayout());
         setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createLineBorder(new Color(100, 149, 237), 2, true),
@@ -123,6 +129,8 @@ public class PanelAgregarProducto extends JPanel {
             dao.agregar(producto);
 
             JOptionPane.showMessageDialog(this, "Producto guardado correctamente.");
+            panelProductos.cargarProductos("");
+            ventana.dispose();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al guardar: " + e.getMessage());
         }

@@ -7,7 +7,8 @@ public class VentanaPrincipal extends JFrame {
 
     private CardLayout cardLayout;
     private JPanel panelCentral;
-
+    private JFrame frame = this; // Referencia a la ventana principal
+    
     public VentanaPrincipal() {
         setTitle("Gestión de Computadoras");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -74,8 +75,9 @@ public class VentanaPrincipal extends JFrame {
         panelCentral.add(panelImagen, "Inicio");
 
         // Paneles del CRUD
-        PanelAgregarProducto panelAgregar = new PanelAgregarProducto();
         PanelProductos panelListar = new PanelProductos();
+        PanelAgregarProducto panelAgregar = new PanelAgregarProducto(panelListar, frame);
+
 
         panelCentral.add(panelAgregar, "Agregar");
         panelCentral.add(panelListar, "Listar");

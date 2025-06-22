@@ -119,7 +119,7 @@ public class PanelProductos extends JPanel {
         // Acción botón Agregar
         btnAgregar.addActionListener(e -> {
             JFrame frame = new JFrame("Agregar Producto");
-            frame.add(new PanelAgregarProducto());
+            frame.add(new PanelAgregarProducto(this, frame));
             frame.setSize(500, 500);
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
@@ -148,7 +148,7 @@ public class PanelProductos extends JPanel {
         });
     }
 
-    private void cargarProductos(String filtro) {
+    void cargarProductos(String filtro) {
         modeloTabla.setRowCount(0); // limpiar tabla
         ProductoDAO dao = new ProductoDAOimpl();
 
