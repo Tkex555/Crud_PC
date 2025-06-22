@@ -74,25 +74,26 @@ public class PanelProductos extends JPanel {
         });
 
         btnActualizar.addActionListener(e -> {
-			int fila = tabla.getSelectedRow();
-			if (fila >= 0) {
-				int idProducto = (int) modeloTabla.getValueAt(fila, 0);
-				ProductoDAO dao = new ProductoDAOimpl();
-				Producto producto = dao.buscarPorId(idProducto);
-				
-				if (producto != null) {
-					JFrame frame = new JFrame("Actualizar Producto");
-					frame.add(new panelEditarProducto(producto));
-					frame.setSize(500, 500);
-					frame.setLocationRelativeTo(null);
-					frame.setVisible(true);
-				} else {
-					JOptionPane.showMessageDialog(this, "Producto no encontrado.");
-				}
-			} else {
-				JOptionPane.showMessageDialog(this, "Selecciona un producto para actualizar.");
-			}
-		});
+            int fila = tabla.getSelectedRow();
+            if (fila >= 0) {
+                int idProducto = (int) modeloTabla.getValueAt(fila, 0);
+                ProductoDAO dao = new ProductoDAOimpl();
+                Producto producto = dao.buscarPorId(idProducto);
+                
+                if (producto != null) {
+                    JFrame frame = new JFrame("Actualizar Producto");
+                    frame.add(new panelEditarProducto(producto, this, frame));
+                    frame.setSize(500, 500);
+                    frame.setLocationRelativeTo(null);
+                    frame.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Producto no encontrado.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Selecciona un producto para actualizar.");
+            }
+        });
+
         
         tabla = new JTable(modeloTabla);
         tabla.setRowHeight(60);
