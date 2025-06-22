@@ -45,5 +45,13 @@ public class panelEditarProducto extends JPanel {
         lblImagenPreview.setPreferredSize(new Dimension(100, 100));
         lblImagenPreview.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
+        if (producto.getImagen_url() != null && !producto.getImagen_url().isEmpty()) {
+            rutaImagenSeleccionada = producto.getImagen_url();
+            ImageIcon icon = new ImageIcon(new ImageIcon(rutaImagenSeleccionada).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
+            lblImagenPreview.setIcon(icon);
+        }
+
+        btnSeleccionarImagen = new JButton("Cambiar Imagen");
+        btnActualizar = new JButton("Actualizar");
     
 }
