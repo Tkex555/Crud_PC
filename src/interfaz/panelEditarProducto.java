@@ -80,4 +80,22 @@ public class panelEditarProducto extends JPanel {
         gbc.gridx = 1;
         add(comp, gbc);
     }
+    
+    private void seleccionarImagen() {
+        JFileChooser fileChooser = new JFileChooser();
+        int resultado = fileChooser.showOpenDialog(this);
+        if (resultado == JFileChooser.APPROVE_OPTION) {
+            File archivo = fileChooser.getSelectedFile();
+            File destino = new File("data/imagenes/" + archivo.getName());
+
+            try {
+                Files.copy(archivo.toPath(), destino.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                rutaImagenSeleccionada = destino.getPath();
+                ImageIcon icon = new ImageIcon(new ImageIcon(rutaImagenSeleccionada).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
+                lblImagenPreview.setIcon(icon);
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(this, "Error al copiar imagen: " + e.getMessage());
+            }
+        }
+    }
 }
