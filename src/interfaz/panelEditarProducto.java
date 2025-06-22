@@ -53,5 +53,24 @@ public class panelEditarProducto extends JPanel {
 
         btnSeleccionarImagen = new JButton("Cambiar Imagen");
         btnActualizar = new JButton("Actualizar");
-    
+        
+        int y = 0;
+
+        addLabelAndComponent(gbc, "Nombre:", txtNombre, y++);
+        addLabelAndComponent(gbc, "Modelo:", txtModelo, y++);
+        addLabelAndComponent(gbc, "Precio:", txtPrecio, y++);
+        addLabelAndComponent(gbc, "Stock:", txtStock, y++);
+        addLabelAndComponent(gbc, "Descripción:", new JScrollPane(txtDescripcion), y++);
+        addLabelAndComponent(gbc, "Especificaciones:", new JScrollPane(txtEspecificaciones), y++);
+        addLabelAndComponent(gbc, "Categoría:", comboCategoria, y++);
+        addLabelAndComponent(gbc, "Marca:", comboMarca, y++);
+        addLabelAndComponent(gbc, "Imagen actual:", lblImagenPreview, y++);
+        addLabelAndComponent(gbc, "", btnSeleccionarImagen, y++);
+        gbc.gridx = 1;
+        gbc.gridy = y;
+        add(btnActualizar, gbc);
+
+        btnSeleccionarImagen.addActionListener(e -> seleccionarImagen());
+        btnActualizar.addActionListener(e -> actualizarProducto());
+    }
 }
