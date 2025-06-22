@@ -98,4 +98,23 @@ public class panelEditarProducto extends JPanel {
             }
         }
     }
+    private void actualizarProducto() {
+        try {
+            producto.setNombre(txtNombre.getText());
+            producto.setModelo(txtModelo.getText());
+            producto.setPrecio(Double.parseDouble(txtPrecio.getText()));
+            producto.setStock(Integer.parseInt(txtStock.getText()));
+            producto.setDescripcion(txtDescripcion.getText());
+            producto.setEspecificaciones_tecnicas(txtEspecificaciones.getText());
+            producto.setId_categoria(Integer.parseInt((String) comboCategoria.getSelectedItem()));
+            producto.setId_marca(Integer.parseInt((String) comboMarca.getSelectedItem()));
+            producto.setImagen_url(rutaImagenSeleccionada);
+
+            ProductoDAO dao = new ProductoDAOimpl();
+            dao.actualizar(producto);
+            JOptionPane.showMessageDialog(this, "Producto actualizado correctamente.");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al actualizar: " + e.getMessage());
+        }
+    }
 }
