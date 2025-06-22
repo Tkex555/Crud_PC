@@ -38,7 +38,11 @@ public class PanelAgregarProducto extends JPanel {
         txtPrecio = new JTextField();
         txtStock = new JTextField();
         txtDescripcion = new JTextArea(3, 20);
+        txtDescripcion.setLineWrap(true);
+        txtDescripcion.setWrapStyleWord(true);
         txtEspecificaciones = new JTextArea(3, 20);
+        txtEspecificaciones.setLineWrap(true);
+        txtEspecificaciones.setWrapStyleWord(true);
         comboCategoria = new JComboBox<>(new String[]{"1", "2"});
         comboMarca = new JComboBox<>(new String[]{"1", "2"});
 
