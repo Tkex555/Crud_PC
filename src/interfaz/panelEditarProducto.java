@@ -73,4 +73,11 @@ public class panelEditarProducto extends JPanel {
         btnSeleccionarImagen.addActionListener(e -> seleccionarImagen());
         btnActualizar.addActionListener(e -> actualizarProducto());
     }
+    private void addLabelAndComponent(GridBagConstraints gbc, String label, Component comp, int y) {
+        gbc.gridx = 0;
+        gbc.gridy = y;
+        add(new JLabel(label), gbc);
+        gbc.gridx = 1;
+        add(comp, gbc);
+    }
 }
