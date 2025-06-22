@@ -17,7 +17,7 @@ public class PanelProductos extends JPanel {
     private JTable tabla;
     private DefaultTableModel modeloTabla;
     private JTextField txtBuscar;
-    private JButton btnBuscar, btnAgregar;
+    private JButton btnBuscar, btnAgregar, btnActualizar;
     private JLabel lblImagenSeleccionada;
 
     public PanelProductos() {
@@ -25,16 +25,18 @@ public class PanelProductos extends JPanel {
 
         // Top panel: búsqueda y agregar
         JPanel panelSuperior = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        txtBuscar = new JTextField(20);
+        txtBuscar = new JTextField(10);
         btnBuscar = new JButton("Buscar");
         btnAgregar = new JButton("Agregar Producto");
         JButton btnEliminar = new JButton("Eliminar seleccionado");
+        btnActualizar = new JButton("Actualizar seleccionado");
         
         panelSuperior.add(new JLabel("Buscar:"));
         panelSuperior.add(txtBuscar);
         panelSuperior.add(btnBuscar);
         panelSuperior.add(btnAgregar);
         panelSuperior.add(btnEliminar);
+        panelSuperior.add(btnActualizar);
         
         // Modelo de tabla con imagen
         modeloTabla = new DefaultTableModel(new String[]{"ID", "Nombre", "Modelo", "Precio", "Imagen"}, 0) {
@@ -127,10 +129,20 @@ public class PanelProductos extends JPanel {
         });
     }
 
-    private void cargarProductos(String filtroNombre) {
-        modeloTabla.setRowCount(0); // limpiar
+    private void cargarProductos(String filtro) {
+        modeloTabla.setRowCount(0); // limpiar tabla
         ProductoDAO dao = new ProductoDAOimpl();
-        List<Producto> lista = filtroNombre.isEmpty() ? dao.listar() : dao.buscarPorNombre(filtroNombre);
+
+        List<Producto> lista;
+
+        // Detectar si es ID (número) o nombre (texto)
+        try {
+            int id = Integer.parseInt(filtro);
+            Producto p = dao.buscarPorId(id);
+            lista = (p != null) ? List.of(p) : List.of();
+        } catch (NumberFormatException e) {
+            lista = filtro.isEmpty() ? dao.listar() : dao.buscarPorNombre(filtro);
+        }
 
         for (Producto p : lista) {
             ImageIcon icono = null;
@@ -148,3 +160,4 @@ public class PanelProductos extends JPanel {
         }
     }
 }
+
