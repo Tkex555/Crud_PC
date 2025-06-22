@@ -127,10 +127,10 @@ public class PanelProductos extends JPanel {
         });
     }
 
-    private void cargarProductos(String filtroNombre) {
-        modeloTabla.setRowCount(0); // limpiar
+    private void cargarProductos(String filtro) {
+        modeloTabla.setRowCount(0); // limpiar tabla
         ProductoDAO dao = new ProductoDAOimpl();
-        
+
         List<Producto> lista;
 
         // Detectar si es ID (número) o nombre (texto)
@@ -138,9 +138,9 @@ public class PanelProductos extends JPanel {
             int id = Integer.parseInt(filtro);
             Producto p = dao.buscarPorId(id);
             lista = (p != null) ? List.of(p) : List.of();
+        } catch (NumberFormatException e) {
+            lista = filtro.isEmpty() ? dao.listar() : dao.buscarPorNombre(filtro);
         }
-        
-        
 
         for (Producto p : lista) {
             ImageIcon icono = null;
