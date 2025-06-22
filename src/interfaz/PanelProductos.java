@@ -130,7 +130,17 @@ public class PanelProductos extends JPanel {
     private void cargarProductos(String filtroNombre) {
         modeloTabla.setRowCount(0); // limpiar
         ProductoDAO dao = new ProductoDAOimpl();
-        List<Producto> lista = filtroNombre.isEmpty() ? dao.listar() : dao.buscarPorNombre(filtroNombre);
+        
+        List<Producto> lista;
+
+        // Detectar si es ID (número) o nombre (texto)
+        try {
+            int id = Integer.parseInt(filtro);
+            Producto p = dao.buscarPorId(id);
+            lista = (p != null) ? List.of(p) : List.of();
+        }
+        
+        
 
         for (Producto p : lista) {
             ImageIcon icono = null;
@@ -148,3 +158,4 @@ public class PanelProductos extends JPanel {
         }
     }
 }
+
