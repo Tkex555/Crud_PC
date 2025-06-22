@@ -121,9 +121,8 @@ public class panelEditarProducto extends JPanel {
             panelProductos.cargarProductos(""); // Actualiza la tabla
             JOptionPane.showMessageDialog(this, "Producto actualizado correctamente.");
 
-            // Cierra ventana si fue abierta desde un JFrame
             if (ventana != null && ventana != SwingUtilities.getWindowAncestor(this)) {
-                ventana.dispose();
+                ventana.dispose(); // solo si fue abierto en una ventana secundaria
             }
 
         } catch (Exception e) {
