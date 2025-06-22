@@ -21,9 +21,14 @@ public class panelEditarProducto extends JPanel {
     private String rutaImagenSeleccionada = "";
     private Producto producto;
     
-    public panelEditarProducto(Producto productoExistente) {
-        this.producto = productoExistente;
+    private PanelProductos panelProductos;
+    private JFrame ventana;
 
+    public panelEditarProducto(Producto productoExistente, PanelProductos panelProductos, JFrame ventana) {
+        this.producto = productoExistente;
+        this.panelProductos = panelProductos;
+        this.ventana = ventana;
+        
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 10, 5, 10);
@@ -112,9 +117,18 @@ public class panelEditarProducto extends JPanel {
 
             ProductoDAO dao = new ProductoDAOimpl();
             dao.actualizar(producto);
+
+            panelProductos.cargarProductos(""); // Actualiza la tabla
             JOptionPane.showMessageDialog(this, "Producto actualizado correctamente.");
+
+            // Cierra ventana si fue abierta desde un JFrame
+            if (ventana != null && ventana != SwingUtilities.getWindowAncestor(this)) {
+                ventana.dispose();
+            }
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al actualizar: " + e.getMessage());
         }
     }
+
 }
