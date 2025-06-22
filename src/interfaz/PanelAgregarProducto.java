@@ -130,7 +130,11 @@ public class PanelAgregarProducto extends JPanel {
 
             JOptionPane.showMessageDialog(this, "Producto guardado correctamente.");
             panelProductos.cargarProductos("");
-            ventana.dispose();
+
+            if (ventana != null && ventana != SwingUtilities.getWindowAncestor(this)) {
+                ventana.dispose(); // solo si fue abierto en una ventana secundaria
+            }
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al guardar: " + e.getMessage());
         }
