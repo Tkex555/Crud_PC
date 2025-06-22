@@ -21,6 +21,14 @@ public class PanelAgregarProducto extends JPanel {
 
     public PanelAgregarProducto() {
         setLayout(new GridBagLayout());
+        setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createLineBorder(new Color(100, 149, 237), 2, true),
+                "Agregar Producto",
+                javax.swing.border.TitledBorder.CENTER,
+                javax.swing.border.TitledBorder.TOP,
+                new Font("Arial", Font.BOLD, 18),
+                new Color(100, 149, 237)
+            ));
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 10, 5, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
