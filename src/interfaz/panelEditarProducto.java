@@ -39,7 +39,11 @@ public class panelEditarProducto extends JPanel {
         txtPrecio = new JTextField(String.valueOf(producto.getPrecio()));
         txtStock = new JTextField(String.valueOf(producto.getStock()));
         txtDescripcion = new JTextArea(producto.getDescripcion(), 3, 20);
+        txtDescripcion.setLineWrap(true);
+        txtDescripcion.setWrapStyleWord(true);
         txtEspecificaciones = new JTextArea(producto.getEspecificaciones_tecnicas(), 3, 20);
+        txtEspecificaciones.setLineWrap(true);
+        txtEspecificaciones.setWrapStyleWord(true);
         comboCategoria = new JComboBox<>(new String[]{"1", "2"});
         comboMarca = new JComboBox<>(new String[]{"1", "2"});
 
@@ -113,7 +117,10 @@ public class panelEditarProducto extends JPanel {
             producto.setEspecificaciones_tecnicas(txtEspecificaciones.getText());
             producto.setId_categoria(Integer.parseInt((String) comboCategoria.getSelectedItem()));
             producto.setId_marca(Integer.parseInt((String) comboMarca.getSelectedItem()));
-            producto.setImagen_url(rutaImagenSeleccionada);
+            // Solo actualiza la imagen si el usuario seleccionó una nueva
+            if (rutaImagenSeleccionada != null && !rutaImagenSeleccionada.isEmpty() && !rutaImagenSeleccionada.equals(producto.getImagen_url())) {
+                producto.setImagen_url(rutaImagenSeleccionada);
+            }
 
             ProductoDAO dao = new ProductoDAOimpl();
             dao.actualizar(producto);
