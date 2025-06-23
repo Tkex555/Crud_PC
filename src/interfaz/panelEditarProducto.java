@@ -117,13 +117,24 @@ public class panelEditarProducto extends JPanel {
             producto.setEspecificaciones_tecnicas(txtEspecificaciones.getText());
             producto.setId_categoria(Integer.parseInt((String) comboCategoria.getSelectedItem()));
             producto.setId_marca(Integer.parseInt((String) comboMarca.getSelectedItem()));
-            // Solo actualiza la imagen si el usuario seleccionó una nueva
-            if (rutaImagenSeleccionada != null && !rutaImagenSeleccionada.isEmpty() && !rutaImagenSeleccionada.equals(producto.getImagen_url())) {
+
+            // Si no se seleccionó una nueva imagen, usa la actual
+            if (rutaImagenSeleccionada == null || rutaImagenSeleccionada.isEmpty()) {
+                producto.setImagen_url(producto.getImagen_url());
+            } else {
                 producto.setImagen_url(rutaImagenSeleccionada);
             }
 
             ProductoDAO dao = new ProductoDAOimpl();
             dao.actualizar(producto);
+
+            // Actualiza la vista previa de la imagen en el panel principal si existe
+            if (producto.getImagen_url() != null && !producto.getImagen_url().isEmpty()) {
+                ImageIcon icon = new ImageIcon(new ImageIcon(producto.getImagen_url()).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
+                lblImagenPreview.setIcon(icon);
+            } else {
+                lblImagenPreview.setIcon(null);
+            }
 
             panelProductos.cargarProductos(""); // Actualiza la tabla
             JOptionPane.showMessageDialog(this, "Producto actualizado correctamente.");

@@ -43,7 +43,7 @@ public class ProductoDAOimpl implements ProductoDAO {
 	
     @Override
     public void actualizar(Producto producto) {
-        String sql = "UPDATE productos SET nombre = ?, modelo = ?, descripcion = ?, precio = ?, stock = ?, especificaciones_tecnicas = ?, id_categoria = ?, id_marca = ? WHERE id = ?";
+        String sql = "UPDATE productos SET nombre = ?, modelo = ?, descripcion = ?, precio = ?, stock = ?, especificaciones_tecnicas = ?, id_categoria = ?, id_marca = ?, imagen_url = ? WHERE id = ?";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, producto.getNombre());
@@ -54,7 +54,8 @@ public class ProductoDAOimpl implements ProductoDAO {
             stmt.setString(6, producto.getEspecificaciones_tecnicas());
             stmt.setInt(7, producto.getId_categoria());
             stmt.setInt(8, producto.getId_marca());
-            stmt.setInt(9, producto.getId());
+            stmt.setString(9, producto.getImagen_url());
+            stmt.setInt(10, producto.getId());
 
             stmt.executeUpdate();
             System.out.println("Producto actualizado correctamente.");
