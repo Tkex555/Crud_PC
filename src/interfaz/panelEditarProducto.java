@@ -39,7 +39,11 @@ public class panelEditarProducto extends JPanel {
         txtPrecio = new JTextField(String.valueOf(producto.getPrecio()));
         txtStock = new JTextField(String.valueOf(producto.getStock()));
         txtDescripcion = new JTextArea(producto.getDescripcion(), 3, 20);
+        txtDescripcion.setLineWrap(true);
+        txtDescripcion.setWrapStyleWord(true);
         txtEspecificaciones = new JTextArea(producto.getEspecificaciones_tecnicas(), 3, 20);
+        txtEspecificaciones.setLineWrap(true);
+        txtEspecificaciones.setWrapStyleWord(true);
         comboCategoria = new JComboBox<>(new String[]{"1", "2"});
         comboMarca = new JComboBox<>(new String[]{"1", "2"});
 
@@ -113,10 +117,24 @@ public class panelEditarProducto extends JPanel {
             producto.setEspecificaciones_tecnicas(txtEspecificaciones.getText());
             producto.setId_categoria(Integer.parseInt((String) comboCategoria.getSelectedItem()));
             producto.setId_marca(Integer.parseInt((String) comboMarca.getSelectedItem()));
-            producto.setImagen_url(rutaImagenSeleccionada);
+
+            // Si no se seleccionó una nueva imagen, usa la actual
+            if (rutaImagenSeleccionada == null || rutaImagenSeleccionada.isEmpty()) {
+                producto.setImagen_url(producto.getImagen_url());
+            } else {
+                producto.setImagen_url(rutaImagenSeleccionada);
+            }
 
             ProductoDAO dao = new ProductoDAOimpl();
             dao.actualizar(producto);
+
+            // Actualiza la vista previa de la imagen en el panel principal si existe
+            if (producto.getImagen_url() != null && !producto.getImagen_url().isEmpty()) {
+                ImageIcon icon = new ImageIcon(new ImageIcon(producto.getImagen_url()).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
+                lblImagenPreview.setIcon(icon);
+            } else {
+                lblImagenPreview.setIcon(null);
+            }
 
             panelProductos.cargarProductos(""); // Actualiza la tabla
             JOptionPane.showMessageDialog(this, "Producto actualizado correctamente.");
