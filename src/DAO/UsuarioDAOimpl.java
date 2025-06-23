@@ -21,7 +21,7 @@ public class UsuarioDAOimpl implements UsuarioDAO {
     }
 
 	@Override
-	public Usuario iniciarSesion(String usuario, String passwordHash) {
+	public Usuario iniciarSesion(String usuario, String contraseña) {
 		return null;
 	}
 
