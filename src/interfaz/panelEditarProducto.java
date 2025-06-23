@@ -2,7 +2,11 @@ package interfaz;
 
 import DAO.ProductoDAO;
 import DAO.ProductoDAOimpl;
+import DAO.CategoriaDAO;
+import DAO.MarcaDAO;
 import mundo.Producto;
+import mundo.Categoria;
+import mundo.Marca;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +19,8 @@ public class panelEditarProducto extends JPanel {
 	
 	private JTextField txtNombre, txtModelo, txtPrecio, txtStock;
     private JTextArea txtDescripcion, txtEspecificaciones;
-    private JComboBox<String> comboCategoria, comboMarca;
+    private JComboBox<Categoria> comboCategoria;
+    private JComboBox<Marca> comboMarca;
     private JLabel lblImagenPreview;
     private JButton btnSeleccionarImagen, btnActualizar;
     private String rutaImagenSeleccionada = "";
@@ -44,11 +49,35 @@ public class panelEditarProducto extends JPanel {
         txtEspecificaciones = new JTextArea(producto.getEspecificaciones_tecnicas(), 3, 20);
         txtEspecificaciones.setLineWrap(true);
         txtEspecificaciones.setWrapStyleWord(true);
-        comboCategoria = new JComboBox<>(new String[]{"1", "2"});
-        comboMarca = new JComboBox<>(new String[]{"1", "2"});
 
-        comboCategoria.setSelectedItem(String.valueOf(producto.getId_categoria()));
-        comboMarca.setSelectedItem(String.valueOf(producto.getId_marca()));
+        // Llenar ComboBox de categorías con objetos Categoria
+        comboCategoria = new JComboBox<>();
+        CategoriaDAO categoriaDAO = new CategoriaDAO();
+        java.util.List<Categoria> categorias = categoriaDAO.obtenerTodas();
+        for (Categoria c : categorias) {
+            comboCategoria.addItem(c);
+        }
+        // Seleccionar la categoría correspondiente al producto
+        for (int i = 0; i < comboCategoria.getItemCount(); i++) {
+            if (comboCategoria.getItemAt(i).getId() == producto.getId_categoria()) {
+                comboCategoria.setSelectedIndex(i);
+                break;
+            }
+        }
+        // Llenar ComboBox de marcas con objetos Marca
+        comboMarca = new JComboBox<>();
+        MarcaDAO marcaDAO = new MarcaDAO();
+        java.util.List<Marca> marcas = marcaDAO.obtenerTodas();
+        for (Marca m : marcas) {
+            comboMarca.addItem(m);
+        }
+        // Seleccionar la marca correspondiente al producto
+        for (int i = 0; i < comboMarca.getItemCount(); i++) {
+            if (comboMarca.getItemAt(i).getId_marca() == producto.getId_marca()) {
+                comboMarca.setSelectedIndex(i);
+                break;
+            }
+        }
 
         lblImagenPreview = new JLabel();
         lblImagenPreview.setPreferredSize(new Dimension(100, 100));
@@ -115,8 +144,12 @@ public class panelEditarProducto extends JPanel {
             producto.setStock(Integer.parseInt(txtStock.getText()));
             producto.setDescripcion(txtDescripcion.getText());
             producto.setEspecificaciones_tecnicas(txtEspecificaciones.getText());
-            producto.setId_categoria(Integer.parseInt((String) comboCategoria.getSelectedItem()));
-            producto.setId_marca(Integer.parseInt((String) comboMarca.getSelectedItem()));
+            // Obtener el ID de la categoría seleccionada
+            Categoria categoriaSeleccionada = (Categoria) comboCategoria.getSelectedItem();
+            producto.setId_categoria(categoriaSeleccionada.getId());
+            // Obtener el ID de la marca seleccionada
+            Marca marcaSeleccionada = (Marca) comboMarca.getSelectedItem();
+            producto.setId_marca(marcaSeleccionada.getId_marca());
 
             // Si no se seleccionó una nueva imagen, usa la actual
             if (rutaImagenSeleccionada == null || rutaImagenSeleccionada.isEmpty()) {

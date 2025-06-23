@@ -3,6 +3,10 @@ package interfaz;
 import mundo.Producto;
 import DAO.ProductoDAO;
 import DAO.ProductoDAOimpl;
+import DAO.CategoriaDAO;
+import DAO.MarcaDAO;
+import mundo.Categoria;
+import mundo.Marca;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +18,8 @@ public class PanelAgregarProducto extends JPanel {
 
     private JTextField txtNombre, txtModelo, txtPrecio, txtStock;
     private JTextArea txtDescripcion, txtEspecificaciones;
-    private JComboBox<String> comboCategoria, comboMarca;
+    private JComboBox<Categoria> comboCategoria;
+    private JComboBox<Marca> comboMarca;
     private JLabel lblImagen, lblImagenPreview;
     private JButton btnSeleccionarImagen, btnGuardar;
     private String rutaImagenSeleccionada = "";
@@ -49,8 +54,14 @@ public class PanelAgregarProducto extends JPanel {
         txtEspecificaciones = new JTextArea(3, 20);
         txtEspecificaciones.setLineWrap(true);
         txtEspecificaciones.setWrapStyleWord(true);
-        comboCategoria = new JComboBox<>(new String[]{"1", "2"});
-        comboMarca = new JComboBox<>(new String[]{"1", "2"});
+        comboCategoria = new JComboBox<>();
+        // Llenar ComboBox de marcas con objetos Marca
+        comboMarca = new JComboBox<>();
+        MarcaDAO marcaDAO = new MarcaDAO();
+        java.util.List<Marca> marcas = marcaDAO.obtenerTodas();
+        for (Marca m : marcas) {
+            comboMarca.addItem(m);
+        }
 
         lblImagen = new JLabel("Sin imagen");
         lblImagenPreview = new JLabel();
@@ -76,6 +87,13 @@ public class PanelAgregarProducto extends JPanel {
         gbc.gridx = 1;
         gbc.gridy = y;
         add(btnGuardar, gbc);
+
+        // Llenar ComboBox de categorías con objetos Categoria
+        CategoriaDAO categoriaDAO = new CategoriaDAO();
+        java.util.List<Categoria> categorias = categoriaDAO.obtenerTodas();
+        for (Categoria c : categorias) {
+            comboCategoria.addItem(c);
+        }
 
         btnSeleccionarImagen.addActionListener(e -> seleccionarImagen());
         btnGuardar.addActionListener(e -> guardarProducto());
@@ -121,8 +139,12 @@ public class PanelAgregarProducto extends JPanel {
             producto.setStock(Integer.parseInt(txtStock.getText()));
             producto.setDescripcion(txtDescripcion.getText());
             producto.setEspecificaciones_tecnicas(txtEspecificaciones.getText());
-            producto.setId_categoria(Integer.parseInt((String) comboCategoria.getSelectedItem()));
-            producto.setId_marca(Integer.parseInt((String) comboMarca.getSelectedItem()));
+            // Obtener el ID de la categoría seleccionada
+            Categoria categoriaSeleccionada = (Categoria) comboCategoria.getSelectedItem();
+            producto.setId_categoria(categoriaSeleccionada.getId());
+            // Obtener el ID de la marca seleccionada
+            Marca marcaSeleccionada = (Marca) comboMarca.getSelectedItem();
+            producto.setId_marca(marcaSeleccionada.getId_marca());
             producto.setImagen_url(rutaImagenSeleccionada);
 
             ProductoDAO dao = new ProductoDAOimpl();
