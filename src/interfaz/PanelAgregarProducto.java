@@ -4,7 +4,9 @@ import mundo.Producto;
 import DAO.ProductoDAO;
 import DAO.ProductoDAOimpl;
 import DAO.CategoriaDAO;
+import DAO.MarcaDAO;
 import mundo.Categoria;
+import mundo.Marca;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +19,7 @@ public class PanelAgregarProducto extends JPanel {
     private JTextField txtNombre, txtModelo, txtPrecio, txtStock;
     private JTextArea txtDescripcion, txtEspecificaciones;
     private JComboBox<Categoria> comboCategoria;
-    private JComboBox<String> comboMarca;
+    private JComboBox<Marca> comboMarca;
     private JLabel lblImagen, lblImagenPreview;
     private JButton btnSeleccionarImagen, btnGuardar;
     private String rutaImagenSeleccionada = "";
@@ -53,7 +55,13 @@ public class PanelAgregarProducto extends JPanel {
         txtEspecificaciones.setLineWrap(true);
         txtEspecificaciones.setWrapStyleWord(true);
         comboCategoria = new JComboBox<>();
-        comboMarca = new JComboBox<>(new String[]{"1", "2"});
+        // Llenar ComboBox de marcas con objetos Marca
+        comboMarca = new JComboBox<>();
+        MarcaDAO marcaDAO = new MarcaDAO();
+        java.util.List<Marca> marcas = marcaDAO.obtenerTodas();
+        for (Marca m : marcas) {
+            comboMarca.addItem(m);
+        }
 
         lblImagen = new JLabel("Sin imagen");
         lblImagenPreview = new JLabel();
@@ -134,7 +142,9 @@ public class PanelAgregarProducto extends JPanel {
             // Obtener el ID de la categoría seleccionada
             Categoria categoriaSeleccionada = (Categoria) comboCategoria.getSelectedItem();
             producto.setId_categoria(categoriaSeleccionada.getId());
-            producto.setId_marca(Integer.parseInt((String) comboMarca.getSelectedItem()));
+            // Obtener el ID de la marca seleccionada
+            Marca marcaSeleccionada = (Marca) comboMarca.getSelectedItem();
+            producto.setId_marca(marcaSeleccionada.getId_marca());
             producto.setImagen_url(rutaImagenSeleccionada);
 
             ProductoDAO dao = new ProductoDAOimpl();

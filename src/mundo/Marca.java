@@ -75,13 +75,8 @@ public class Marca {
 	}
 	
 	
+	@Override
 	public String toString() {
-        return "Marca{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", pais_origen='" + pais_origen + '\'' +
-                ", descripcion='" + descripcion + '\'' +
-                ", fecha_creacion=" + fecha_creacion +
-                '}';
-    }
+	    return nombre;
+	}
 }
