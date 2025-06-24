@@ -146,21 +146,43 @@ public class panelEditarProducto extends JPanel {
 	 */
     private void seleccionarImagen() {
         JFileChooser fileChooser = new JFileChooser();
+        
+        // Crear un filtro para solo permitir imágenes JPG y PNG
+        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Imágenes JPG/PNG", "jpg", "png"));
+        
         int resultado = fileChooser.showOpenDialog(this);
         if (resultado == JFileChooser.APPROVE_OPTION) {
             File archivo = fileChooser.getSelectedFile();
-            File destino = new File("data/imagenes/" + archivo.getName());
-
-            try {
-                Files.copy(archivo.toPath(), destino.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                rutaImagenSeleccionada = destino.getPath();
-                ImageIcon icon = new ImageIcon(new ImageIcon(rutaImagenSeleccionada).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
-                lblImagenPreview.setIcon(icon);
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(this, "Error al copiar imagen: " + e.getMessage());
+            
+            // Validar que la extensión sea .jpg o .png
+            String extension = getFileExtension(archivo);
+            if (extension.equals("jpg") || extension.equals("png")) {
+                File destino = new File("data/imagenes/" + archivo.getName());
+                try {
+                    Files.copy(archivo.toPath(), destino.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    rutaImagenSeleccionada = destino.getPath();
+                    ImageIcon icon = new ImageIcon(new ImageIcon(rutaImagenSeleccionada)
+                            .getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
+                    lblImagenPreview.setIcon(icon);
+                } catch (IOException e) {
+                    JOptionPane.showMessageDialog(this, "Error al copiar imagen: " + e.getMessage());
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Solo se permiten archivos JPG y PNG.");
             }
         }
     }
+
+    // Método auxiliar para obtener la extensión del archivo
+    private String getFileExtension(File file) {
+        String nombreArchivo = file.getName();
+        int index = nombreArchivo.lastIndexOf('.');
+        if (index > 0) {
+            return nombreArchivo.substring(index + 1).toLowerCase();
+        }
+        return "";
+    }
+
     
     /**
      * Método para actualizar el producto con los datos ingresados en el formulario.
