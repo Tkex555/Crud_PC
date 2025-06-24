@@ -25,17 +25,20 @@ public class VentanaPrincipal extends JFrame {
         JButton btninicio = new JButton("Inicio");
         JButton btnAgregar = new JButton("Agregar");
         JButton btnListar = new JButton("Listar");
+        JButton btnInventario = new JButton("Inventario");
         
         
         //hacer los botones más grandes
         btninicio.setPreferredSize(new Dimension(150, 50));
         btnAgregar.setPreferredSize(new Dimension(150, 50));
         btnListar.setPreferredSize(new Dimension(150, 50));
+        btnInventario.setPreferredSize(new Dimension(150, 50));
 
         // Agregar botones al panel
         panelBotones.add(btninicio);
         panelBotones.add(btnAgregar);
         panelBotones.add(btnListar);
+        panelBotones.add(btnInventario);
         add(panelBotones, BorderLayout.SOUTH);
 
         // Panel central con CardLayout
@@ -77,10 +80,12 @@ public class VentanaPrincipal extends JFrame {
         // Paneles del CRUD
         PanelProductos panelListar = new PanelProductos();
         PanelAgregarProducto panelAgregar = new PanelAgregarProducto(panelListar, frame);
+        PanelInventario panelInventario = new PanelInventario();
 
 
         panelCentral.add(panelAgregar, "Agregar");
         panelCentral.add(panelListar, "Listar");
+        panelCentral.add(panelInventario, "Inventario");
 
         add(panelCentral, BorderLayout.CENTER);
 
@@ -88,6 +93,10 @@ public class VentanaPrincipal extends JFrame {
         btninicio.addActionListener(e -> cardLayout.show(panelCentral, "Inicio"));
         btnAgregar.addActionListener(e -> cardLayout.show(panelCentral, "Agregar"));
         btnListar.addActionListener(e -> cardLayout.show(panelCentral, "Listar"));
+        btnInventario.addActionListener(e -> {
+            panelInventario.refrescar();
+            cardLayout.show(panelCentral, "Inventario");
+        });
 
         setVisible(true);
     }
@@ -97,3 +106,6 @@ public class VentanaPrincipal extends JFrame {
         SwingUtilities.invokeLater(() -> new VentanaPrincipal());
     }
 }
+
+// Panel principal de la aplicación de gestión de computadoras
+// Commit: Interfaz principal y navegación CRUD

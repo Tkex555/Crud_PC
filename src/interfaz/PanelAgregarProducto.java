@@ -13,7 +13,12 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
+// Panel para agregar productos y crear inventario inicial
+// Commit: Alta de productos y registro en inventario
 public class PanelAgregarProducto extends JPanel {
 
     private JTextField txtNombre, txtModelo, txtPrecio, txtStock;
@@ -136,7 +141,8 @@ public class PanelAgregarProducto extends JPanel {
             producto.setNombre(txtNombre.getText());
             producto.setModelo(txtModelo.getText());
             producto.setPrecio(Double.parseDouble(txtPrecio.getText()));
-            producto.setStock(Integer.parseInt(txtStock.getText()));
+            int stock = Integer.parseInt(txtStock.getText());
+            producto.setStock(stock);
             producto.setDescripcion(txtDescripcion.getText());
             producto.setEspecificaciones_tecnicas(txtEspecificaciones.getText());
             // Obtener el ID de la categoría seleccionada
@@ -149,6 +155,29 @@ public class PanelAgregarProducto extends JPanel {
 
             ProductoDAO dao = new ProductoDAOimpl();
             dao.agregar(producto);
+
+            // Obtener el id del producto recién insertado
+            int idProducto = -1;
+            try (Connection con = conexion.conexion.getConnection();
+                 PreparedStatement ps = con.prepareStatement("SELECT id FROM productos ORDER BY id DESC LIMIT 1");
+                 ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    idProducto = rs.getInt("id");
+                }
+            }
+            if (idProducto != -1) {
+                // Insertar en inventario con stock_actual igual al stock inicial, y min/max igual al stock inicial
+                try (Connection con = conexion.conexion.getConnection();
+                     PreparedStatement ps = con.prepareStatement(
+                        "INSERT INTO inventario (id_producto, stock_actual, stock_minimo, stock_maximo) VALUES (?, ?, ?, ?)")
+                ) {
+                    ps.setInt(1, idProducto);
+                    ps.setInt(2, stock);
+                    ps.setInt(3, stock);
+                    ps.setInt(4, stock);
+                    ps.executeUpdate();
+                }
+            }
 
             JOptionPane.showMessageDialog(this, "Producto guardado correctamente.");
             panelProductos.cargarProductos("");
