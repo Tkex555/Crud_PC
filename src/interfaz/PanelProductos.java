@@ -12,6 +12,11 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * Panel para mostrar y gestionar productos en el sistema.
+ * Permite buscar, agregar, actualizar y eliminar productos,
+ * así como visualizar una imagen del producto seleccionado.
+ */
 public class PanelProductos extends JPanel {
 
     private JTable tabla;
@@ -19,7 +24,11 @@ public class PanelProductos extends JPanel {
     private JTextField txtBuscar;
     private JButton btnBuscar, btnAgregar, btnActualizar;
     private JLabel lblImagenSeleccionada;
-
+    
+    /**
+	 * Constructor del panel de productos.
+	 * Inicializa el layout, los componentes y carga los datos de los productos.
+	 */
     public PanelProductos() {
         setLayout(new BorderLayout());
 
@@ -148,7 +157,13 @@ public class PanelProductos extends JPanel {
             }
         });
     }
-
+    /**
+	 * Carga los productos en la tabla según el filtro proporcionado.
+	 * Si el filtro es un número, busca por ID; si es texto, busca por nombre.
+	 * Si el filtro está vacío, carga todos los productos.
+	 *
+	 * @param filtro El texto o ID a buscar.
+	 */
     void cargarProductos(String filtro) {
         modeloTabla.setRowCount(0); // limpiar tabla
         ProductoDAO dao = new ProductoDAOimpl();

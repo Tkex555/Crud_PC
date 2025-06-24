@@ -8,18 +8,36 @@ import java.util.ArrayList;
 import conexion.conexion;
 import mundo.Producto;
 
-
+/** Clase que maneja las operaciones de acceso a datos para los productos.
+ * Contiene métodos para agregar, actualizar, eliminar, buscar por ID, listar y buscar por nombre productos.
+ * Esta clase se conecta a una base de datos MySQL y ejecuta consultas SQL.
+ */
 public class ProductoDAOimpl implements ProductoDAO {
 	
+		/**
+	 * Conexión a la base de datos.
+	 * Se inicializa al crear una instancia de ProductoDAOimpl.
+	 */
 	private Connection conn;
-
+	
+	/**
+	 * Constructor de la clase ProductoDAOimpl.
+	 * Inicializa la conexión a la base de datos utilizando la clase conexion.
+	 * Si la conexión es nula, imprime un mensaje de error.
+	 */
     public ProductoDAOimpl() {
         this.conn = conexion.getConnection();
         if (this.conn == null) {
             System.out.println("La conexión es nula. Verifica los datos.");
         }
     }
-
+    
+    /**
+	 * Método para agregar un nuevo producto a la base de datos.
+	 * Este método establece una conexión con la base de datos, prepara una consulta SQL
+	 * y ejecuta la inserción del producto proporcionado.
+	 * @param producto - Objeto Producto que contiene los datos del producto a agregar.
+	 */
     @Override
     public void agregar(Producto producto) {
         String sql = "INSERT INTO productos (nombre, modelo, descripcion, precio, stock, especificaciones_tecnicas, id_categoria, id_marca, imagen_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -39,8 +57,13 @@ public class ProductoDAOimpl implements ProductoDAO {
             System.out.println("Error al agregar producto: " + e.getMessage());
         }
     }
-
-	
+    
+    /**
+     * Método para actualizar un producto existente en la base de datos.
+     * Este método establece una conexión con la base de datos, prepara una consulta SQL
+     * y ejecuta la actualización del producto proporcionado.
+     * @param producto - Objeto Producto que contiene los datos del producto a actualizar.
+     */
     @Override
     public void actualizar(Producto producto) {
         String sql = "UPDATE productos SET nombre = ?, modelo = ?, descripcion = ?, precio = ?, stock = ?, especificaciones_tecnicas = ?, id_categoria = ?, id_marca = ?, imagen_url = ? WHERE id = ?";
@@ -63,7 +86,13 @@ public class ProductoDAOimpl implements ProductoDAO {
             System.out.println("Error al actualizar producto: " + e.getMessage());
         }
     }
-
+    
+    /**
+	 * Método para eliminar un producto de la base de datos.
+	 * Este método establece una conexión con la base de datos, prepara una consulta SQL
+	 * y ejecuta la eliminación del producto con el ID proporcionado.
+	 * @param id - Identificador único del producto a eliminar.
+	 */
     @Override
     public void eliminar(int id) {
         String sql = "DELETE FROM productos WHERE id = ?";
@@ -81,7 +110,14 @@ public class ProductoDAOimpl implements ProductoDAO {
             System.out.println("Error al eliminar producto: " + e.getMessage());
         }
     }
-
+    
+    /**
+	 * Método para buscar un producto por su ID.
+	 * Este método establece una conexión con la base de datos, prepara una consulta SQL
+	 * y devuelve el producto correspondiente al ID proporcionado.
+	 * @param id - Identificador único del producto a buscar.
+	 * @return Producto - Objeto Producto que contiene los datos del producto encontrado, o null si no se encuentra.
+	 */
     @Override
     public Producto buscarPorId(int id) {
         String sql = "SELECT * FROM productos WHERE id = ?";
@@ -114,7 +150,13 @@ public class ProductoDAOimpl implements ProductoDAO {
 
         return null;
     }
-
+    
+    /**
+     * Método para listar todos los productos de la base de datos.
+     * Este método establece una conexión con la base de datos, ejecuta una consulta SQL
+     * y devuelve una lista de todos los productos disponibles.
+     * @return List<Producto> - Lista de todos los productos disponibles en la base de datos.
+     */
 	@Override
 	public List<Producto> listar() {
 	    List<Producto> productos = new ArrayList<>();
@@ -148,8 +190,14 @@ public class ProductoDAOimpl implements ProductoDAO {
 
 	    return productos;
 	}
-
 	
+	/**
+	 * Método para buscar productos por nombre.
+	 * Este método establece una conexión con la base de datos, prepara una consulta SQL
+	 * y devuelve una lista de productos cuyos nombres coinciden con el criterio de búsqueda.
+	 * @param nombre - Nombre o parte del nombre del producto a buscar.
+	 * @return List<Producto> - Lista de productos que coinciden con el nombre proporcionado.
+	 */
 	@Override
 	public List<Producto> buscarPorNombre(String nombre) {
 	    List<Producto> productos = new ArrayList<>();

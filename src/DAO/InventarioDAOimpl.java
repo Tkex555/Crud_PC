@@ -5,8 +5,18 @@ import mundo.Inventario;
 import java.sql.*;
 import java.util.*;
 
+/**
+ * Clase que implementa las operaciones de acceso a datos para el inventario.
+ * Contiene métodos para obtener, agregar, actualizar y eliminar registros de inventario en la base de datos.
+ */
 public class InventarioDAOimpl implements InventarioDAO {
-    @Override
+    /**
+     * Método para obtener todos los registros de inventario de la base de datos.
+     * Este método establece una conexión con la base de datos, ejecuta una consulta SQL
+     * y devuelve una lista de objetos Inventario.
+     * @return List<Inventario> - Lista de todos los registros de inventario disponibles en la base de datos.
+     */
+	@Override
     public List<Inventario> obtenerTodos() {
         List<Inventario> lista = new ArrayList<>();
         String sql = "SELECT * FROM inventario";
@@ -29,7 +39,14 @@ public class InventarioDAOimpl implements InventarioDAO {
         }
         return lista;
     }
-
+	
+		/**
+	 * Método para obtener un registro de inventario por su ID.
+	 * Este método establece una conexión con la base de datos, ejecuta una consulta SQL
+	 * y devuelve un objeto Inventario correspondiente al ID proporcionado.
+	 * @param id - Identificador único del inventario a buscar.
+	 * @return Inventario - Objeto que representa el registro de inventario encontrado, o null si no se encuentra.
+	 */
     @Override
     public Inventario obtenerPorId(int id) {
         String sql = "SELECT * FROM inventario WHERE id = ?";
@@ -53,7 +70,13 @@ public class InventarioDAOimpl implements InventarioDAO {
         }
         return null;
     }
-
+    
+    /**
+     * Método para agregar un nuevo registro de inventario a la base de datos.
+     * Este método establece una conexión con la base de datos, prepara una sentencia SQL
+     * y ejecuta la inserción del nuevo inventario.
+     * @param inventario - Objeto Inventario que contiene los datos a insertar.
+     */
     @Override
     public void agregar(Inventario inventario) {
         String sql = "INSERT INTO inventario (id_producto, stock_actual, stock_minimo, stock_maximo, fecha_ultima_actualizacion) VALUES (?, ?, ?, ?, ?)";
@@ -69,7 +92,13 @@ public class InventarioDAOimpl implements InventarioDAO {
             e.printStackTrace();
         }
     }
-
+    
+    /**
+	 * Método para actualizar un registro de inventario existente en la base de datos.
+	 * Este método establece una conexión con la base de datos, prepara una sentencia SQL
+	 * y ejecuta la actualización del inventario.
+	 * @param inventario - Objeto Inventario que contiene los datos a actualizar.
+	 */
     @Override
     public void actualizar(Inventario inventario) {
         String sql = "UPDATE inventario SET stock_actual=?, stock_minimo=?, stock_maximo=?, fecha_ultima_actualizacion=? WHERE id=?";
@@ -85,7 +114,13 @@ public class InventarioDAOimpl implements InventarioDAO {
             e.printStackTrace();
         }
     }
-
+    
+    /**
+	 * Método para eliminar un registro de inventario por su ID.
+	 * Este método establece una conexión con la base de datos, prepara una sentencia SQL
+	 * y ejecuta la eliminación del inventario correspondiente al ID proporcionado.
+	 * @param id - Identificador único del inventario a eliminar.
+	 */
     @Override
     public void eliminar(int id) {
         String sql = "DELETE FROM inventario WHERE id=?";

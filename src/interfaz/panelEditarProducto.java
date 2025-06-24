@@ -17,6 +17,11 @@ import java.nio.file.*;
 
 
 // Panel para editar productos y actualizar inventario
+/**
+ * Panel para editar un producto existente en el sistema.
+ * Este panel permite modificar los detalles del producto,
+ * cambiar la imagen y actualizar la información en la base de datos.
+ */
 public class panelEditarProducto extends JPanel {
 	
 	private JTextField txtNombre, txtModelo, txtPrecio, txtStock;
@@ -30,7 +35,13 @@ public class panelEditarProducto extends JPanel {
     
     private PanelProductos panelProductos;
     private JFrame ventana;
-
+    
+    /**
+	 * Constructor del panel para editar un producto existente.
+	 * @param productoExistente El producto a editar.
+	 * @param panelProductos El panel donde se mostrarán los productos.
+	 * @param ventana La ventana principal de la aplicación.
+	 */
     public panelEditarProducto(Producto productoExistente, PanelProductos panelProductos, JFrame ventana) {
         this.producto = productoExistente;
         this.panelProductos = panelProductos;
@@ -113,6 +124,14 @@ public class panelEditarProducto extends JPanel {
         btnSeleccionarImagen.addActionListener(e -> seleccionarImagen());
         btnActualizar.addActionListener(e -> actualizarProducto());
     }
+    
+    /**
+	 * Método auxiliar para agregar una etiqueta y un componente al panel con GridBagLayout.
+	 * @param gbc Las restricciones de GridBagConstraints.
+	 * @param label El texto de la etiqueta.
+	 * @param comp El componente a agregar.
+	 * @param y La posición vertical en el GridBagLayout.
+	 */
     private void addLabelAndComponent(GridBagConstraints gbc, String label, Component comp, int y) {
         gbc.gridx = 0;
         gbc.gridy = y;
@@ -121,6 +140,10 @@ public class panelEditarProducto extends JPanel {
         add(comp, gbc);
     }
     
+    /**
+	 * Método para seleccionar una imagen desde el sistema de archivos.
+	 * Copia la imagen seleccionada a la carpeta "data/imagenes" y actualiza la vista previa.
+	 */
     private void seleccionarImagen() {
         JFileChooser fileChooser = new JFileChooser();
         int resultado = fileChooser.showOpenDialog(this);
@@ -138,6 +161,13 @@ public class panelEditarProducto extends JPanel {
             }
         }
     }
+    
+    /**
+     * Método para actualizar el producto con los datos ingresados en el formulario.
+     * Actualiza la información del producto en la base de datos y en el inventario.
+     * Si no se selecciona una nueva imagen, se mantiene la imagen actual.
+     * Actualiza la vista previa de la imagen en el panel principal si existe.
+     */
     private void actualizarProducto() {
         try {
             producto.setNombre(txtNombre.getText());
