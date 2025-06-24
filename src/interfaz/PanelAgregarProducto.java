@@ -150,6 +150,10 @@ public class PanelAgregarProducto extends JPanel {
             ProductoDAO dao = new ProductoDAOimpl();
             dao.agregar(producto);
 
+            // Agregar inventario para el nuevo producto
+            PanelInventario panelInventario = new PanelInventario();
+            panelInventario.agregarInventarioParaUltimoProducto();
+
             JOptionPane.showMessageDialog(this, "Producto guardado correctamente.");
             panelProductos.cargarProductos("");
 
