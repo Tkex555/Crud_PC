@@ -41,4 +41,3 @@ public class Inventario {
 }
 
 // Clase de modelo para la entidad Inventario
-// Commit: Modelo de inventario con stock actual, mínimo y máximo

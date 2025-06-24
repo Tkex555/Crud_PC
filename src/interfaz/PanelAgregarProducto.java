@@ -18,7 +18,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 // Panel para agregar productos y crear inventario inicial
-// Commit: Alta de productos y registro en inventario
 public class PanelAgregarProducto extends JPanel {
 
     private JTextField txtNombre, txtModelo, txtPrecio, txtStock;
@@ -39,7 +38,7 @@ public class PanelAgregarProducto extends JPanel {
         setLayout(new GridBagLayout());
         setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createLineBorder(new Color(100, 149, 237), 2, true),
-                "Agregar Producto",
+                "Agregar PC",
                 javax.swing.border.TitledBorder.CENTER,
                 javax.swing.border.TitledBorder.TOP,
                 new Font("Arial", Font.BOLD, 18),

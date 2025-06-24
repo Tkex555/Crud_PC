@@ -17,7 +17,6 @@ import java.nio.file.*;
 
 
 // Panel para editar productos y actualizar inventario
-// Commit: Edición de productos y sincronización de inventario
 public class panelEditarProducto extends JPanel {
 	
 	private JTextField txtNombre, txtModelo, txtPrecio, txtStock;
