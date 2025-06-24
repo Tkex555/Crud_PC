@@ -18,6 +18,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 // Panel para agregar productos y crear inventario inicial
+/**
+ * Panel para agregar un nuevo producto al sistema.
+ * Este panel permite ingresar los detalles del producto,
+ * seleccionar una imagen y guardar el producto en la base de datos.
+ */
 public class PanelAgregarProducto extends JPanel {
 
     private JTextField txtNombre, txtModelo, txtPrecio, txtStock;
@@ -30,7 +35,12 @@ public class PanelAgregarProducto extends JPanel {
 
     private PanelProductos panelProductos;
     private JFrame ventana;
-
+    
+    /**
+	 * Constructor del panel para agregar un nuevo producto.
+	 * @param panelProductos El panel donde se mostrarán los productos.
+	 * @param ventana La ventana principal de la aplicación, si es que se abre en una ventana secundaria.
+	 */
     public PanelAgregarProducto(PanelProductos panelProductos, JFrame ventana) {
         this.panelProductos = panelProductos;
         this.ventana = ventana;
@@ -102,7 +112,14 @@ public class PanelAgregarProducto extends JPanel {
         btnSeleccionarImagen.addActionListener(e -> seleccionarImagen());
         btnGuardar.addActionListener(e -> guardarProducto());
     }
-
+    
+    /**
+	 * Método auxiliar para agregar una etiqueta y un componente al panel con GridBagLayout.
+	 * @param gbc GridBagConstraints para posicionar los componentes.
+	 * @param label Texto de la etiqueta.
+	 * @param comp Componente a agregar (JTextField, JComboBox, etc.).
+	 * @param y Fila en la que se agregará el componente.
+	 */
     private void addLabelAndComponent(GridBagConstraints gbc, String label, Component comp, int y) {
         gbc.gridx = 0;
         gbc.gridy = y;
@@ -111,7 +128,12 @@ public class PanelAgregarProducto extends JPanel {
         gbc.gridx = 1;
         add(comp, gbc);
     }
-
+    
+    /**
+	 * Método para seleccionar una imagen desde el sistema de archivos.
+	 * Utiliza JFileChooser para permitir al usuario seleccionar un archivo de imagen.
+	 * La imagen seleccionada se copia a un directorio específico y se muestra en el panel.
+	 */
     private void seleccionarImagen() {
         JFileChooser fileChooser = new JFileChooser();
         int resultado = fileChooser.showOpenDialog(this);
@@ -133,7 +155,12 @@ public class PanelAgregarProducto extends JPanel {
             }
         }
     }
-
+    
+    /**
+     * Método para guardar un nuevo producto en la base de datos.
+     * Este método recoge los datos ingresados en los campos del formulario,
+     * crea un objeto Producto y lo guarda en la base de datos.
+     */
     private void guardarProducto() {
         try {
             Producto producto = new Producto();

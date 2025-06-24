@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * Clase que maneja la conexión a la base de datos MySQL.
+ * Contiene métodos para obtener una conexión y cerrar la conexión. 
+ */
 public class conexion {
 	
 	private static final String URL = "jdbc:mysql://localhost:3306/crud_pc";
@@ -15,9 +19,11 @@ public class conexion {
 	
 	private conexion() {}
 	
-	
-	
-	
+	/**
+	 * Método para obtener una conexión a la base de datos.
+	 * Si la conexión ya existe y está abierta, la devuelve; de lo contrario, crea una nueva conexión.
+	 * @return Connection - Objeto de conexión a la base de datos.
+	 */
 	public static Connection getConnection() {
         try {
             if (connection == null || connection.isClosed()) {
@@ -39,11 +45,18 @@ public class conexion {
         return connection;
     }
 	
+	/**
+	 * Método privado para establecer la conexión a la base de datos.
+	 * @param connection
+	 */
 	private conexion(Connection connection) {
 		conexion.connection = connection;
 	}
 	
-	
+	/**
+	 * Método para cerrar la conexión a la base de datos.
+	 * Si la conexión está abierta, la cierra y libera los recursos.
+	 */
 	public static void closeConnection() {
         try {
             if (connection != null && !connection.isClosed()) {
