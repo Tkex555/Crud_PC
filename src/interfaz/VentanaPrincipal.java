@@ -2,7 +2,7 @@ package interfaz;
 
 import javax.swing.*;
 import java.awt.*;
-/*
+/**
  * VentanaPrincipal.java
  * Clase que representa la ventana principal de la aplicación de gestión de computadoras.
  */
