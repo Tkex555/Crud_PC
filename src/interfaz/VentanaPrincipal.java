@@ -93,7 +93,10 @@ public class VentanaPrincipal extends JFrame {
         btninicio.addActionListener(e -> cardLayout.show(panelCentral, "Inicio"));
         btnAgregar.addActionListener(e -> cardLayout.show(panelCentral, "Agregar"));
         btnListar.addActionListener(e -> cardLayout.show(panelCentral, "Listar"));
-        btnInventario.addActionListener(e -> cardLayout.show(panelCentral, "Inventario"));
+        btnInventario.addActionListener(e -> {
+            panelInventario.refrescar();
+            cardLayout.show(panelCentral, "Inventario");
+        });
 
         setVisible(true);
     }

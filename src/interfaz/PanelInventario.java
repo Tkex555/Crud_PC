@@ -1,27 +1,20 @@
 package interfaz;
 
-import DAO.InventarioDAO;
-import DAO.InventarioDAOimpl;
-import mundo.Inventario;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.List;
+import java.sql.*;
+import conexion.conexion;
 
 public class PanelInventario extends JPanel {
     private JTable tabla;
     private DefaultTableModel modelo;
-    private InventarioDAO inventarioDAO = new InventarioDAOimpl();
 
     public PanelInventario() {
         setLayout(new BorderLayout());
         modelo = new DefaultTableModel();
         modelo.setColumnIdentifiers(new Object[]{
-                "ID", "ID Producto", "Stock Actual", "Stock Mínimo", "Stock Máximo", "Fecha Última Actualización"
+                "ID Producto", "Nombre Producto", "Stock Actual", "Stock Mínimo", "Stock Máximo"
         });
         tabla = new JTable(modelo);
         JScrollPane scroll = new JScrollPane(tabla);
@@ -31,21 +24,34 @@ public class PanelInventario extends JPanel {
 
     public void cargarDatos() {
         modelo.setRowCount(0);
-        List<Inventario> lista = inventarioDAO.obtenerTodos();
-        for (Inventario inv : lista) {
-            modelo.addRow(new Object[]{
-                    inv.getId(),
-                    inv.getIdProducto(),
-                    inv.getStockActual(),
-                    inv.getStockMinimo(),
-                    inv.getStockMaximo(),
-                    inv.getFechaUltimaActualizacion()
-            });
+        String sql = "SELECT p.id AS id_producto, p.nombre, i.stock_actual, i.stock_minimo, i.stock_maximo " +
+                "FROM productos p LEFT JOIN inventario i ON p.id = i.id_producto";
+        try (Connection con = conexion.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                modelo.addRow(new Object[]{
+                        rs.getInt("id_producto"),
+                        rs.getString("nombre"),
+                        rs.getObject("stock_actual") != null ? rs.getInt("stock_actual") : "",
+                        rs.getObject("stock_minimo") != null ? rs.getInt("stock_minimo") : "",
+                        rs.getObject("stock_maximo") != null ? rs.getInt("stock_maximo") : ""
+                });
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        // Forzar refresco visual
+        modelo.fireTableDataChanged();
+        tabla.repaint();
+    }
+
+    public void refrescar() {
+        cargarDatos();
     }
 
     public void agregarInventarioParaUltimoProducto() {
-        try (Connection con = conexion.conexion.getConnection();
+        try (Connection con = conexion.getConnection();
              PreparedStatement ps = con.prepareStatement("SELECT id FROM productos ORDER BY id DESC LIMIT 1");
              ResultSet rs = ps.executeQuery()) {
             if (rs.next()) {

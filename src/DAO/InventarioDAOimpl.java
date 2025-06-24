@@ -72,15 +72,14 @@ public class InventarioDAOimpl implements InventarioDAO {
 
     @Override
     public void actualizar(Inventario inventario) {
-        String sql = "UPDATE inventario SET id_producto=?, stock_actual=?, stock_minimo=?, stock_maximo=?, fecha_ultima_actualizacion=? WHERE id=?";
+        String sql = "UPDATE inventario SET stock_actual=?, stock_minimo=?, stock_maximo=?, fecha_ultima_actualizacion=? WHERE id=?";
         try (Connection con = conexion.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, inventario.getIdProducto());
-            ps.setInt(2, inventario.getStockActual());
-            ps.setInt(3, inventario.getStockMinimo());
-            ps.setInt(4, inventario.getStockMaximo());
-            ps.setTimestamp(5, new java.sql.Timestamp(inventario.getFechaUltimaActualizacion().getTime()));
-            ps.setInt(6, inventario.getId());
+            ps.setInt(1, inventario.getStockActual());
+            ps.setInt(2, inventario.getStockMinimo());
+            ps.setInt(3, inventario.getStockMaximo());
+            ps.setTimestamp(4, new java.sql.Timestamp(inventario.getFechaUltimaActualizacion().getTime()));
+            ps.setInt(5, inventario.getId());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

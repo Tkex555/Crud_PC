@@ -4,6 +4,7 @@ import DAO.ProductoDAO;
 import DAO.ProductoDAOimpl;
 import DAO.CategoriaDAO;
 import DAO.MarcaDAO;
+import DAO.InventarioUpdater;
 import mundo.Producto;
 import mundo.Categoria;
 import mundo.Marca;
@@ -160,6 +161,9 @@ public class panelEditarProducto extends JPanel {
 
             ProductoDAO dao = new ProductoDAOimpl();
             dao.actualizar(producto);
+
+            // Actualizar inventario
+            InventarioUpdater.actualizarInventarioPorProducto(producto.getId(), producto.getStock());
 
             // Actualiza la vista previa de la imagen en el panel principal si existe
             if (producto.getImagen_url() != null && !producto.getImagen_url().isEmpty()) {
