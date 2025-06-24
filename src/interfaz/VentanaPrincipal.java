@@ -2,13 +2,23 @@ package interfaz;
 
 import javax.swing.*;
 import java.awt.*;
-
+/*
+ * VentanaPrincipal.java
+ * Clase que representa la ventana principal de la aplicación de gestión de computadoras.
+ */
 public class VentanaPrincipal extends JFrame {
-
+	/*
+	 * Panel que contiene los diferentes paneles de la aplicación utilizando CardLayout.
+	 * Esto permite cambiar entre diferentes vistas (Inicio, Agregar, Listar, Inventario) sin cambiar de ventana.
+	 */
     private CardLayout cardLayout;
     private JPanel panelCentral;
     private JFrame frame = this; // Referencia a la ventana principal
     
+    /**
+	 * Constructor de la clase VentanaPrincipal.
+	 * Configura la ventana, los paneles y los botones de navegación.
+	 */
     public VentanaPrincipal() {
         setTitle("Gestión de Computadoras");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -21,7 +31,8 @@ public class VentanaPrincipal extends JFrame {
         JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 10));
         panelBotones.setBackground(new Color(230, 230, 250));
         panelBotones.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 10));
-
+        
+        // Crear botones
         JButton btninicio = new JButton("Inicio");
         JButton btnAgregar = new JButton("Agregar");
         JButton btnListar = new JButton("Listar");
@@ -45,7 +56,7 @@ public class VentanaPrincipal extends JFrame {
         cardLayout = new CardLayout();
         panelCentral = new JPanel(cardLayout);
         
-        
+        // Panel de inicio con texto e imagen
         JPanel panelTextoImagen = new JPanel();
         panelTextoImagen.setLayout(new BoxLayout(panelTextoImagen, BoxLayout.Y_AXIS));
         panelTextoImagen.setOpaque(false); 
@@ -101,7 +112,9 @@ public class VentanaPrincipal extends JFrame {
         setVisible(true);
     }
 
-    // Método main para lanzar la app directamente
+    /*
+     * Método main para iniciar la aplicación.
+     */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new VentanaPrincipal());
     }
