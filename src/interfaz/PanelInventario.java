@@ -6,6 +6,8 @@ import java.awt.*;
 import java.sql.*;
 import conexion.conexion;
 
+// Panel para mostrar y refrescar el inventario de productos
+// Commit: Visualización y refresco de inventario
 public class PanelInventario extends JPanel {
     private JTable tabla;
     private DefaultTableModel modelo;

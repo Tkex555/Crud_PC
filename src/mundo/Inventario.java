@@ -39,3 +39,6 @@ public class Inventario {
     public Date getFechaUltimaActualizacion() { return fechaUltimaActualizacion; }
     public void setFechaUltimaActualizacion(Date fechaUltimaActualizacion) { this.fechaUltimaActualizacion = fechaUltimaActualizacion; }
 }
+
+// Clase de modelo para la entidad Inventario
+// Commit: Modelo de inventario con stock actual, mínimo y máximo

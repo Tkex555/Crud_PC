@@ -17,6 +17,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+// Panel para agregar productos y crear inventario inicial
+// Commit: Alta de productos y registro en inventario
 public class PanelAgregarProducto extends JPanel {
 
     private JTextField txtNombre, txtModelo, txtPrecio, txtStock;

@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import conexion.conexion;
 
 public class InventarioUpdater {
+    // Lógica para actualizar los valores de inventario según el stock del producto
+    // Commit: Sincronización de inventario con productos
     public static void actualizarInventarioPorProducto(int idProducto, int nuevoStock) {
         try (Connection con = conexion.getConnection();
              PreparedStatement ps = con.prepareStatement("SELECT stock_actual, stock_minimo, stock_maximo FROM inventario WHERE id_producto = ?");) {

@@ -106,3 +106,6 @@ public class VentanaPrincipal extends JFrame {
         SwingUtilities.invokeLater(() -> new VentanaPrincipal());
     }
 }
+
+// Panel principal de la aplicación de gestión de computadoras
+// Commit: Interfaz principal y navegación CRUD
